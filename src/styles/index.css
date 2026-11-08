@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* FUENTES PARA TAILWIND v4 */
+@theme {
+  --font-nunito: "Nunito", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+}
