@@ -25,6 +25,7 @@ export function useNuevoReporte() {
   const [city,              setCity]              = useState('')
   const [barrio,            setBarrio]            = useState('')
   const [estado,            setEstado]            = useState('perdida')
+  const [especie,           setEspecie]           = useState('')
   const [description,       setDescription]       = useState('')
   const [contact,           setContact]           = useState('')
   const [foundDate,         setFoundDate]         = useState('')
@@ -105,6 +106,10 @@ export function useNuevoReporte() {
     e.preventDefault()
     setError(null)
 
+    if (!especie) {
+      setError('Selecciona el tipo de mascota')
+      return
+    }
     if (estado === 'perdida' && !name.trim()) {
       setError('El nombre es requerido para mascotas perdidas')
       return
@@ -134,6 +139,7 @@ export function useNuevoReporte() {
         barrio:     barrioNorm,
         barrioSlug: barrioNorm.toLowerCase().replace(/\s/g, ''),
         estado,
+        especie,
         photoURLs:  imageUrls,
         contact,
         foundDate:        foundDate        || null,
@@ -165,6 +171,7 @@ export function useNuevoReporte() {
     city,              setCity,
     barrio,            setBarrio,
     estado,            setEstado,
+    especie,           setEspecie,
     description,       setDescription,
     contact,           setContact,
     foundDate,         setFoundDate,

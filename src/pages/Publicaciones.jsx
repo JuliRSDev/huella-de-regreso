@@ -17,6 +17,7 @@ const Publicaciones = () => {
   const [cityFilter,       setCityFilter]       = useState('')
   const [barrioFilter,     setBarrioFilter]      = useState('')
   const [estadoFilter,     setEstadoFilter]      = useState('')
+  const [especieFilter,    setEspecieFilter]     = useState('')
 
   /* Búsqueda client-side */
   const [searchQuery,    setSearchQuery]    = useState('')
@@ -38,6 +39,7 @@ const Publicaciones = () => {
     cityFilter,
     barrioFilter,
     estadoFilter,
+    especieFilter,
   })
 
   /* Opciones de barrio derivadas de los reportes cargados */
@@ -60,7 +62,7 @@ const Publicaciones = () => {
     })
   }, [reports, debouncedSearch])
 
-  const hasFilters = !!(departmentFilter || cityFilter || barrioFilter || estadoFilter || debouncedSearch)
+  const hasFilters = !!(departmentFilter || cityFilter || barrioFilter || estadoFilter || especieFilter || debouncedSearch)
 
   return (
     <div className='min-h-screen bg-gray-50 mt-20'>
@@ -105,6 +107,7 @@ const Publicaciones = () => {
             cityFilter={cityFilter}             setCityFilter={setCityFilter}
             barrioFilter={barrioFilter}         setBarrioFilter={setBarrioFilter}
             estadoFilter={estadoFilter}         setEstadoFilter={setEstadoFilter}
+            especieFilter={especieFilter}       setEspecieFilter={setEspecieFilter}
             barrios={barrios}
           />
         </div>

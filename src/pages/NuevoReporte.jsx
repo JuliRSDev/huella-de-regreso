@@ -1,6 +1,7 @@
 import { useNuevoReporte }         from '../components/newReport/Usenuevoreporte'
 import { CamposEncontradaNuevo }   from '../components/newReport/Camposencontradanuevo'
 import { ImageUploadGrid }         from '../components/newReport/Imageuploadgrid'
+import SpeciesPicker               from '../components/newReport/SpeciesPicker'
 import Login                       from '../pages/Login'
 
 // ── Shared styles ──────────────────────────────────────────────────────────────
@@ -33,6 +34,7 @@ const NuevoReporte = () => {
     city,              setCity,
     barrio,            setBarrio,
     estado,            setEstado,
+    especie,           setEspecie,
     description,       setDescription,
     contact,           setContact,
     foundDate,         setFoundDate,
@@ -97,6 +99,8 @@ const NuevoReporte = () => {
                 ))}
               </div>
             </div>
+
+            <SpeciesPicker value={especie} onChange={setEspecie} />
 
             {/* Nombre (perdida) o Fecha (encontrada) */}
             {estado === 'perdida' ? (

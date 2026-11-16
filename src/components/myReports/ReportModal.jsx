@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Carousel from './Carousel'
-
-const BADGE = {
-  perdida:    'bg-red-50 text-red-600 ring-1 ring-red-200',
-  encontrada: 'bg-green-50 text-green-600 ring-1 ring-green-200',
-}
+import { findSpecies, findStatus } from '../../constants/pets'
 
 const InfoRow = ({ icon, label, value }) => {
   if (!value) return null
@@ -55,8 +51,9 @@ const ReportModal = (
 
   if (!selected) return null
 
-  const estado = selected.estado?.trim().toLowerCase() || ''
-  const badgeCls = BADGE[estado] || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
+  const status   = findStatus(selected.estado)
+  const species  = findSpecies(selected.especie)
+  const badgeCls = status?.badge || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
   const location = [selected.city, selected.barrio].filter(Boolean).join(', ')
 
   const overlayAnim = closing ? 'opacity-0' : 'opacity-100'
@@ -81,7 +78,7 @@ const ReportModal = (
               {selected.title || 'Sin nombre'}
             </h2>
             <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeCls}`}>
-              {selected.estado}
+              {status ? status.label : selected.estado}
             </span>
           </div>
           <button
@@ -115,6 +112,7 @@ const ReportModal = (
 
             {/* Datos */}
             <div className="space-y-4 flex-1">
+              <InfoRow icon={species?.emoji || '🐾'} label="Tipo de mascota" value={species?.label} />
               <InfoRow icon="📍" label="Ubicación"    value={location} />
               <InfoRow icon="📝" label="Descripción"  value={selected.description} />
               <InfoRow icon="📞" label="Contacto"     value={selected.contact} />

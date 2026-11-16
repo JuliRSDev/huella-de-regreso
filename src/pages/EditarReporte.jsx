@@ -1,6 +1,7 @@
 import { useEditarReporte }   from '../components/editReport/Useeditarreporte'
 import { ImageUploader }      from '../components/editReport/ImageUploader'
 import { CamposEncontrada }   from '../components/editReport/Camposencontrada'
+import SpeciesPicker          from '../components/newReport/SpeciesPicker'
 
 // ── Helpers de estilo reutilizables ────────────────────────────────────────────
 const inputCls =
@@ -58,6 +59,7 @@ const EditarReporte = () => {
     city, setCity,
     barrio, setBarrio,
     estado, setEstado,
+    especie, setEspecie,
     description, setDescription,
     contact, setContact,
     foundDate, setFoundDate,
@@ -125,6 +127,8 @@ const EditarReporte = () => {
                 <option value="encontrada">✅ Mascota Encontrada</option>
               </select>
             </div>
+
+            <SpeciesPicker value={especie} onChange={setEspecie} />
 
             {estado === 'perdida' && (
               <div>

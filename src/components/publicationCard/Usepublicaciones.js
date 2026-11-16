@@ -7,14 +7,26 @@ import { db } from '../../config/firebase'
 
 const PAGE_SIZE = 9
 
+// Equality filters followed by the createdAt sort; each combination has a composite index in firestore.indexes.json.
+const filterConstraints = ({ departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter }) => {
+  const constraints = []
+  if (departmentFilter) constraints.push(where('department', '==', departmentFilter))
+  if (cityFilter)       constraints.push(where('city',       '==', cityFilter))
+  if (estadoFilter)     constraints.push(where('estado',     '==', estadoFilter))
+  if (barrioFilter)     constraints.push(where('barrio',     '==', barrioFilter))
+  if (especieFilter)    constraints.push(where('especie',    '==', especieFilter))
+  constraints.push(orderBy('createdAt', 'desc'))
+  return constraints
+}
+
 /**
  * Custom hook que gestiona:
  * - Suscripción en tiempo real a Firestore
- * - Filtros por departamento, ciudad, barrio y estado
+ * - Filtros por departamento, ciudad, barrio, estado y especie
  * - Búsqueda client-side con debounce
  * - Paginación (load more)
  */
-export function usePublicaciones({ departmentFilter, cityFilter, barrioFilter, estadoFilter }) {
+export function usePublicaciones({ departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter }) {
   const [reports, setReports]     = useState([])
   const [loading, setLoading]     = useState(true)
   const [error, setError]         = useState(null)
@@ -34,13 +46,10 @@ export function usePublicaciones({ departmentFilter, cityFilter, barrioFilter, e
     setError(null)
 
     try {
-      const constraints = []
-      if (departmentFilter) constraints.push(where('department', '==', departmentFilter))
-      if (cityFilter)        constraints.push(where('city',       '==', cityFilter))
-      if (estadoFilter)      constraints.push(where('estado',     '==', estadoFilter))
-      if (barrioFilter)      constraints.push(where('barrio',     '==', barrioFilter))
-      constraints.push(orderBy('createdAt', 'desc'))
-      constraints.push(limit(PAGE_SIZE))
+      const constraints = [
+        ...filterConstraints({ departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter }),
+        limit(PAGE_SIZE),
+      ]
 
       const q   = query(collection(db, 'pets'), ...constraints)
       const unsub = onSnapshot(
@@ -65,21 +74,18 @@ export function usePublicaciones({ departmentFilter, cityFilter, barrioFilter, e
       setError('Error inicializando feed')
       setLoading(false)
     }
-  }, [departmentFilter, cityFilter, barrioFilter, estadoFilter])
+  }, [departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter])
 
   /* ─── Load more (paginación) ─── */
   const loadMore = async () => {
     if (!lastDoc || loadingMore) return
     setLoadingMore(true)
     try {
-      const constraints = []
-      if (departmentFilter) constraints.push(where('department', '==', departmentFilter))
-      if (cityFilter)        constraints.push(where('city',       '==', cityFilter))
-      if (barrioFilter)      constraints.push(where('barrio',     '==', barrioFilter))
-      if (estadoFilter)      constraints.push(where('estado',     '==', estadoFilter))
-      constraints.push(orderBy('createdAt', 'desc'))
-      constraints.push(startAfter(lastDoc))
-      constraints.push(limit(PAGE_SIZE))
+      const constraints = [
+        ...filterConstraints({ departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter }),
+        startAfter(lastDoc),
+        limit(PAGE_SIZE),
+      ]
 
       const snap  = await getDocs(query(collection(db, 'pets'), ...constraints))
       const items = snap.docs.map(d => ({ id: d.id, ...d.data() }))

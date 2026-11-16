@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import locationsData from '../../data/colombia-municipios.json'
-
-const ESTADOS = ['perdida', 'encontrada']
+import { SPECIES, STATUSES } from '../../constants/pets'
 
 const selectCls = `
   appearance-none bg-white border border-gray-200 text-gray-700 text-sm
@@ -26,8 +25,8 @@ const SelectWrapper = ({ children }) => (
 /**
  * FilterBar
  * Props:
- *   departmentFilter, cityFilter, barrioFilter, estadoFilter  — valores actuales
- *   setDepartmentFilter, setCityFilter, setBarrioFilter, setEstadoFilter — setters
+ *   departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter — valores actuales
+ *   setDepartmentFilter, setCityFilter, setBarrioFilter, setEstadoFilter, setEspecieFilter — setters
  *   barrios — array de barrios derivado de los reportes cargados
  */
 const FilterBar = ({
@@ -35,6 +34,7 @@ const FilterBar = ({
   cityFilter,       setCityFilter,
   barrioFilter,     setBarrioFilter,
   estadoFilter,     setEstadoFilter,
+  especieFilter,    setEspecieFilter,
   barrios = [],
 }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -44,13 +44,14 @@ const FilterBar = ({
     ? (locationsData.find(d => d.departamento === departmentFilter)?.ciudades ?? [])
     : []
 
-  const activeCount = [departmentFilter, cityFilter, barrioFilter, estadoFilter].filter(Boolean).length
+  const activeCount = [departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter].filter(Boolean).length
 
   const clearAll = () => {
     setDepartmentFilter('')
     setCityFilter('')
     setBarrioFilter('')
     setEstadoFilter('')
+    setEspecieFilter('')
   }
 
   const onDeptChange = (e) => {
@@ -62,14 +63,14 @@ const FilterBar = ({
   const FilterSelects = () => (
     <>
       <SelectWrapper>
-        <select value={departmentFilter} onChange={onDeptChange} className={selectCls}>
+        <select aria-label='Departamento' value={departmentFilter} onChange={onDeptChange} className={selectCls}>
           <option value=''>Departamento</option>
           {departments.map(dep => <option key={dep} value={dep}>{dep}</option>)}
         </select>
       </SelectWrapper>
 
       <SelectWrapper>
-        <select value={cityFilter} onChange={e => setCityFilter(e.target.value)}
+        <select aria-label='Ciudad' value={cityFilter} onChange={e => setCityFilter(e.target.value)}
           disabled={!departmentFilter} className={selectCls + (!departmentFilter ? ' opacity-50 cursor-not-allowed' : '')}>
           <option value=''>Ciudad</option>
           {cities.map(c => <option key={c} value={c}>{c}</option>)}
@@ -77,18 +78,23 @@ const FilterBar = ({
       </SelectWrapper>
 
       <SelectWrapper>
-        <select value={barrioFilter} onChange={e => setBarrioFilter(e.target.value)} className={selectCls}>
+        <select aria-label='Barrio' value={barrioFilter} onChange={e => setBarrioFilter(e.target.value)} className={selectCls}>
           <option value=''>Barrio</option>
           {barrios.map(b => <option key={b} value={b}>{b}</option>)}
         </select>
       </SelectWrapper>
 
       <SelectWrapper>
-        <select value={estadoFilter} onChange={e => setEstadoFilter(e.target.value)} className={selectCls}>
+        <select aria-label='Estado' value={estadoFilter} onChange={e => setEstadoFilter(e.target.value)} className={selectCls}>
           <option value=''>Estado</option>
-          {ESTADOS.map(s => (
-            <option key={s} value={s} className='capitalize'>{s}</option>
-          ))}
+          {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+        </select>
+      </SelectWrapper>
+
+      <SelectWrapper>
+        <select aria-label='Tipo de mascota' value={especieFilter} onChange={e => setEspecieFilter(e.target.value)} className={selectCls}>
+          <option value=''>Tipo de mascota</option>
+          {SPECIES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
         </select>
       </SelectWrapper>
     </>

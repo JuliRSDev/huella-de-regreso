@@ -6,6 +6,7 @@
  * - metadata accesible (ciudad, barrio, fecha)
  * - overlay de información al hacer hover
  */
+import { findSpecies, findStatus } from '../../constants/pets'
 
 const PLACEHOLDER_ICON = (
   <svg className='w-12 h-12 text-gray-300' viewBox='0 0 24 24' fill='none'
@@ -18,13 +19,10 @@ const PLACEHOLDER_ICON = (
   </svg>
 )
 
-const estadoBadge = (estado = '') => {
-  const e = estado.trim().toLowerCase()
-  if (e === 'perdida' || e === 'perdido')
-    return { cls: 'bg-red-100 text-red-700 ring-1 ring-red-200', label: '🔴 Perdido' }
-  if (e === 'encontrada' || e === 'encontrado')
-    return { cls: 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200', label: '🟢 Encontrado' }
-  return { cls: 'bg-amber-100 text-amber-700 ring-1 ring-amber-200', label: '🟡 ' + estado }
+const estadoBadge = (estado) => {
+  const status = findStatus(estado)
+  if (status) return { cls: status.badge, label: `${status.emoji} ${status.label}` }
+  return { cls: 'bg-amber-100 text-amber-700 ring-1 ring-amber-200', label: estado || 'Sin estado' }
 }
 
 const formatDate = (ts) => {
@@ -39,6 +37,7 @@ const formatDate = (ts) => {
 
 const PetCard = ({ report, onClick }) => {
   const badge   = estadoBadge(report.estado)
+  const species = findSpecies(report.especie)
   const dateStr = formatDate(report.createdAt)
   const img     = report.photoURLs?.[0]
 
@@ -98,9 +97,16 @@ const PetCard = ({ report, onClick }) => {
 
       {/* ── Contenido ── */}
       <div className='p-4'>
-        <h3 className='font-bold text-gray-900 text-base leading-snug mb-1 truncate'>
-          {report.title || 'Sin título'}
-        </h3>
+        <div className='flex items-center justify-between gap-2 mb-1'>
+          <h3 className='font-bold text-gray-900 text-base leading-snug truncate'>
+            {report.title || 'Sin título'}
+          </h3>
+          {species && (
+            <span className='shrink-0 text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full'>
+              <span aria-hidden='true'>{species.emoji}</span> {species.label}
+            </span>
+          )}
+        </div>
 
         {/* Ubicación */}
         <div className='flex items-center gap-1.5 text-gray-500 text-sm mb-2'>
