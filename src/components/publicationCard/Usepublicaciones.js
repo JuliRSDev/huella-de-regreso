@@ -13,7 +13,7 @@ const filterConstraints = ({ departmentFilter, cityFilter, barrioFilter, estadoF
   if (departmentFilter) constraints.push(where('department', '==', departmentFilter))
   if (cityFilter)       constraints.push(where('city',       '==', cityFilter))
   if (estadoFilter)     constraints.push(where('estado',     '==', estadoFilter))
-  if (barrioFilter)     constraints.push(where('barrio',     '==', barrioFilter))
+  if (barrioFilter)     constraints.push(where('barrioSlug', '==', barrioFilter))
   if (especieFilter)    constraints.push(where('especie',    '==', especieFilter))
   constraints.push(orderBy('createdAt', 'desc'))
   return constraints

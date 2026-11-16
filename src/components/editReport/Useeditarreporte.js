@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
+import { normalizeBarrio, barrioSlug } from '../../utils/barrio'
 
 export function useEditarReporte() {
   const { id } = useParams()
@@ -196,7 +197,8 @@ export function useEditarReporte() {
         title:            name,
         department,
         city,
-        barrio,
+        barrio:           normalizeBarrio(barrio),
+        barrioSlug:       barrioSlug(barrio),
         estado,
         especie,
         reunitedAt:       estado === 'reencontrada' ? (reunitedAt || new Date().toISOString()) : null,

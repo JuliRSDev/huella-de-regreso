@@ -27,7 +27,7 @@ const SelectWrapper = ({ children }) => (
  * Props:
  *   departmentFilter, cityFilter, barrioFilter, estadoFilter, especieFilter — valores actuales
  *   setDepartmentFilter, setCityFilter, setBarrioFilter, setEstadoFilter, setEspecieFilter — setters
- *   barrios — array de barrios derivado de los reportes cargados
+ *   barrios — [{ value: slug, label }] derivado de los reportes cargados
  */
 const FilterBar = ({
   departmentFilter, setDepartmentFilter,
@@ -80,7 +80,7 @@ const FilterBar = ({
       <SelectWrapper>
         <select aria-label='Barrio' value={barrioFilter} onChange={e => setBarrioFilter(e.target.value)} className={selectCls}>
           <option value=''>Barrio</option>
-          {barrios.map(b => <option key={b} value={b}>{b}</option>)}
+          {barrios.map(b => <option key={b.value} value={b.value}>{b.label}</option>)}
         </select>
       </SelectWrapper>
 

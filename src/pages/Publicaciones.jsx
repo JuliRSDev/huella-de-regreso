@@ -4,6 +4,7 @@ import SearchBar  from '../components/publicationCard/SearchBar'
 import FilterBar  from '../components/publicationCard/Filterbar'
 import StatsBar   from '../components/publicationCard/StatsBar'
 import PetGrid    from '../components/publicationCard/PetGrid'
+import { barrioSlug } from '../utils/barrio'
 
 // Modal con lazy load (componente pesado)
 const ReportModal = lazy(() => import('../components/myReports/ReportModal'))
@@ -42,11 +43,15 @@ const Publicaciones = () => {
     especieFilter,
   })
 
-  /* Opciones de barrio derivadas de los reportes cargados */
-  const barrios = useMemo(
-    () => Array.from(new Set(reports.map(r => r.barrio).filter(Boolean))),
-    [reports]
-  )
+  /* Opciones de barrio derivadas de los reportes cargados: una por slug, con el nombre que se ve */
+  const barrios = useMemo(() => {
+    const bySlug = new Map()
+    for (const r of reports) {
+      const slug = r.barrioSlug || barrioSlug(r.barrio)
+      if (slug && !bySlug.has(slug)) bySlug.set(slug, r.barrio)
+    }
+    return Array.from(bySlug, ([value, label]) => ({ value, label }))
+  }, [reports])
 
   /* Filtrado client-side (búsqueda) */
   const filtered = useMemo(() => {

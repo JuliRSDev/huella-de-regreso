@@ -123,7 +123,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "barrio",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -141,7 +141,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -159,91 +159,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "department",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "city",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "department",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "city",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -265,83 +181,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "especie",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "department",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "especie",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "city",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "especie",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "pets",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "department",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "city",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "especie",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -359,7 +199,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "especie",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -381,7 +221,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "especie",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -403,7 +243,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "especie",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -429,7 +269,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "especie",
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {
@@ -442,10 +282,6 @@
       "collectionGroup": "pets",
       "queryScope": "COLLECTION",
       "fields": [
-        {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
         {
           "fieldPath": "especie",
           "order": "ASCENDING"
@@ -465,10 +301,6 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "especie",
           "order": "ASCENDING"
         },
@@ -484,10 +316,6 @@
       "fields": [
         {
           "fieldPath": "city",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
           "order": "ASCENDING"
         },
         {
@@ -513,10 +341,6 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "especie",
           "order": "ASCENDING"
         },
@@ -532,10 +356,6 @@
       "fields": [
         {
           "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
           "order": "ASCENDING"
         },
         {
@@ -561,10 +381,6 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "especie",
           "order": "ASCENDING"
         },
@@ -584,10 +400,6 @@
         },
         {
           "fieldPath": "estado",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "barrio",
           "order": "ASCENDING"
         },
         {
@@ -617,7 +429,195 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "barrio",
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "estado",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "estado",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "estado",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "especie",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "pets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "city",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "estado",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "barrioSlug",
           "order": "ASCENDING"
         },
         {

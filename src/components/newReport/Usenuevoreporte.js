@@ -4,16 +4,7 @@ import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import { AuthContext } from '../../context/AuthContext'
 import { uploadToCloudinary } from '../../config/cloudinary'
-
-const normalizeBarrio = (text = '') =>
-  text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9\s]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase()
-    .replace(/\b\w/g, (l) => l.toUpperCase())
+import { normalizeBarrio, barrioSlug } from '../../utils/barrio'
 
 export function useNuevoReporte() {
   const navigate    = useNavigate()
@@ -137,7 +128,7 @@ export function useNuevoReporte() {
         department,
         city,
         barrio:     barrioNorm,
-        barrioSlug: barrioNorm.toLowerCase().replace(/\s/g, ''),
+        barrioSlug: barrioSlug(barrio),
         estado,
         especie,
         photoURLs:  imageUrls,
