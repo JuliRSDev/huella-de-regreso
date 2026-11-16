@@ -61,8 +61,11 @@ export function usePublicaciones({ departmentFilter, cityFilter, barrioFilter, e
           setLoading(false)
         },
         (err) => {
-          console.error(err)
-          setError('Error cargando publicaciones')
+          console.error('Could not load reports', err)
+          // Clear stale results so a failed filter never looks like a successful one.
+          setReports([])
+          setHasMore(false)
+          setError('No se pudieron cargar las publicaciones con estos filtros. Inténtalo de nuevo en unos minutos.')
           setLoading(false)
         }
       )
