@@ -36,15 +36,22 @@ export function useAuthForm() {
       await signInWithEmailAndPassword(auth, email, password)
       navigate(from, { replace: true })
     } catch (err) {
-      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
-        setError('No existe una cuenta con este correo')
+      // With email enumeration protection on, Firebase answers invalid-credential for both
+      // an unknown email and a wrong password, so the message cannot claim which one failed.
+      if (['auth/invalid-credential', 'auth/user-not-found', 'auth/wrong-password'].includes(err.code)) {
+        setError('Correo o contraseña incorrectos. Revisa los datos o crea una cuenta.')
         return
       }
-      if (err.code === 'auth/wrong-password') {
-        setError('Contraseña incorrecta')
+      if (err.code === 'auth/invalid-email') {
+        setError('El correo no es válido')
         return
       }
-      setError(err.message || 'Error al iniciar sesión')
+      if (err.code === 'auth/too-many-requests') {
+        setError('Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.')
+        return
+      }
+      console.error('Email login failed', err.code)
+      setError('No se pudo iniciar sesión. Inténtalo de nuevo.')
     } finally {
       setLoading(false)
     }
