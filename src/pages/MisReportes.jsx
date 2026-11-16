@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef, lazy, Suspense } from 'react'
-import { collection, query, where, onSnapshot, deleteDoc, doc } from 'firebase/firestore'
+import { collection, query, where, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../config/firebase'
 import { AuthContext } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
@@ -76,9 +76,31 @@ const MisReportes = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('¿Estás seguro de que quieres eliminar este reporte?')) return
-    await deleteDoc(doc(db, 'pets', id))
-    setReports(prev => prev.filter(r => r.id !== id))
-    setSelected(null)
+    try {
+      await deleteDoc(doc(db, 'pets', id))
+      setReports(prev => prev.filter(r => r.id !== id))
+      setSelected(null)
+    } catch (err) {
+      console.error('Could not delete report', err)
+      window.alert('No se pudo eliminar el reporte. Inténtalo de nuevo.')
+    }
+  }
+
+  // The previous status is kept so the statistics can tell lost pets from found ones after the reunion.
+  const handleReunite = async (report) => {
+    if (!window.confirm('¿Confirmas que la mascota ya volvió a casa? El reporte quedará como reencontrado.')) return
+    const changes = {
+      estado: 'reencontrada',
+      previousEstado: report.estado,
+      reunitedAt: new Date().toISOString(),
+    }
+    try {
+      await updateDoc(doc(db, 'pets', report.id), changes)
+      setSelected(prev => (prev?.id === report.id ? { ...prev, ...changes } : prev))
+    } catch (err) {
+      console.error('Could not mark report as reunited', err)
+      window.alert('No se pudo actualizar el reporte. Inténtalo de nuevo.')
+    }
   }
 
   const handleView = (r) => {
@@ -141,6 +163,7 @@ const MisReportes = () => {
             selected={selected}
             setSelected={setSelected}
             handleDelete={handleDelete}
+            onReunite={handleReunite}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             mode="owner" // clave para mostrar acciones de edición/eliminación

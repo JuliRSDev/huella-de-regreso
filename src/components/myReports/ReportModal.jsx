@@ -21,6 +21,7 @@ const ReportModal = (
     selected, 
     setSelected, 
     handleDelete, 
+    onReunite,
     selectedIndex, 
     setSelectedIndex,
     mode = "public" // reutilizable 
@@ -128,6 +129,16 @@ const ReportModal = (
             </div>
 
             {/* Acciones */}
+            {mode === "owner" && status?.value !== 'reencontrada' && (
+              <button
+                type="button"
+                onClick={() => onReunite(selected)}
+                className="w-full bg-sky-50 hover:bg-sky-500 hover:text-white text-sky-700 font-bold text-sm py-2.5 px-4 rounded-xl transition-all border border-sky-200 hover:border-sky-500 cursor-pointer"
+              >
+                🏡 Ya volvió a casa
+              </button>
+            )}
+
             {mode === "owner" && (
               <div className="flex gap-2 pt-4 border-t border-gray-100">
                 <Link
@@ -137,9 +148,7 @@ const ReportModal = (
                   ✏️ Editar
                 </Link>
                 <button
-                  onClick={() => {
-                    if (window.confirm('¿Eliminar este reporte?')) handleDelete(selected.id)
-                  }}
+                  onClick={() => handleDelete(selected.id)}
                   className="flex-1 bg-red-50 hover:bg-red-500 hover:text-white text-red-600 font-bold text-sm py-2.5 px-4 rounded-xl transition-all border border-red-200 hover:border-red-500 cursor-pointer"
                 >
                   🗑️ Eliminar

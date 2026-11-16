@@ -125,6 +125,7 @@ const EditarReporte = () => {
               >
                 <option value="perdida">🔍 Mascota Perdida</option>
                 <option value="encontrada">✅ Mascota Encontrada</option>
+                <option value="reencontrada">🏡 Ya volvió a casa</option>
               </select>
             </div>
 

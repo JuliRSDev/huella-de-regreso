@@ -1,19 +1,9 @@
 import { Link } from 'react-router-dom'
-
-const BADGE = {
-  perdida:    'bg-red-50 text-red-600 ring-1 ring-red-200',
-  encontrada: 'bg-green-50 text-green-600 ring-1 ring-green-200',
-}
-
-const BADGE_DOT = {
-  perdida:    'bg-red-400',
-  encontrada: 'bg-green-400',
-}
+import { findStatus } from '../../constants/pets'
 
 const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) => {
-  const estado = r.estado?.trim().toLowerCase() || ''
-  const badgeCls = BADGE[estado] || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
-  const dotCls   = BADGE_DOT[estado] || 'bg-yellow-400'
+  const status   = findStatus(r.estado)
+  const badgeCls = status?.badge || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
   const location = [r.city, r.barrio].filter(Boolean).join(' · ')
 
   return (
@@ -76,8 +66,8 @@ const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) 
         {/* Badge de estado flotante */}
         <div className="absolute top-3 left-3">
           <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm bg-white/90 ${badgeCls}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${dotCls}`} />
-            {r.estado}
+            <span aria-hidden="true">{status?.emoji}</span>
+            {status ? status.label : r.estado}
           </span>
         </div>
       </div>

@@ -15,6 +15,7 @@ export function useEditarReporte() {
   const [barrio, setBarrio]                   = useState('')
   const [estado, setEstado]                   = useState('perdida')
   const [especie, setEspecie]                 = useState('')
+  const [reunitedAt, setReunitedAt]           = useState(null)
   const [description, setDescription]         = useState('')
   const [contact, setContact]                 = useState('')
   const [foundDate, setFoundDate]             = useState('')
@@ -95,6 +96,7 @@ export function useEditarReporte() {
         setBarrio(data.barrio || '')
         setEstado(data.estado || 'perdida')
         setEspecie(data.especie || '')
+        setReunitedAt(data.reunitedAt || null)
         setDescription(data.description || '')
         setContact(data.contact || '')
         setFoundDate(data.foundDate || '')
@@ -197,6 +199,7 @@ export function useEditarReporte() {
         barrio,
         estado,
         especie,
+        reunitedAt:       estado === 'reencontrada' ? (reunitedAt || new Date().toISOString()) : null,
         description,
         contact,
         photoURLs:        finalPhotos,
