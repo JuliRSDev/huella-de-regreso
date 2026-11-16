@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "node --test \"src/**/*.test.js\"",
     "deploy": "npm run build && npx firebase deploy --only hosting"
   },
   "dependencies": {

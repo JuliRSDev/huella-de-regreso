@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Carousel from './Carousel'
 import { findSpecies, findStatus } from '../../constants/pets'
+import { contactLinks } from '../../utils/contactLinks'
+
+const CONTACT_ICON = { call: '📞', whatsapp: '💬', email: '✉️', link: '🔗' }
 
 const InfoRow = ({ icon, label, value }) => {
   if (!value) return null
@@ -27,6 +30,7 @@ const ReportModal = (
     mode = "public" // reutilizable 
   }) => {
   const [closing, setClosing] = useState(false)
+  const closeButtonRef = useRef(null)
 
   const close = () => {
     setClosing(true)
@@ -44,6 +48,11 @@ const ReportModal = (
     return () => window.removeEventListener('keydown', handler)
   }, [selected])
 
+  // Move keyboard focus into the dialog so screen readers and Tab start inside it
+  useEffect(() => {
+    if (selected) closeButtonRef.current?.focus()
+  }, [selected])
+
   // Lock scroll
   useEffect(() => {
     document.body.style.overflow = selected ? 'hidden' : ''
@@ -56,6 +65,7 @@ const ReportModal = (
   const species  = findSpecies(selected.especie)
   const badgeCls = status?.badge || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
   const location = [selected.city, selected.barrio].filter(Boolean).join(', ')
+  const contactActions = mode === 'public' ? contactLinks(selected.contact) : []
 
   const overlayAnim = closing ? 'opacity-0' : 'opacity-100'
   const panelAnim   = closing ? 'opacity-0 scale-95 translate-y-2' : 'opacity-100 scale-100 translate-y-0'
@@ -67,6 +77,9 @@ const ReportModal = (
       onClick={close}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-modal-title"
         className={`bg-white w-full max-w-3xl rounded-2xl shadow-2xl transition-all duration-200 ${panelAnim}
                   max-h-[90vh] flex flex-col`}
         onClick={(e) => e.stopPropagation()}
@@ -75,7 +88,7 @@ const ReportModal = (
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100 sticky top-0 bg-white z-10">
           <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 id="report-modal-title" className="text-xl font-bold text-gray-900">
               {selected.title || 'Sin nombre'}
             </h2>
             <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeCls}`}>
@@ -83,6 +96,9 @@ const ReportModal = (
             </span>
           </div>
           <button
+            ref={closeButtonRef}
+            type="button"
+            aria-label="Cerrar"
             onClick={close}
             className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors text-gray-500 hover:text-gray-800 cursor-pointer"
           >
@@ -117,6 +133,22 @@ const ReportModal = (
               <InfoRow icon="📍" label="Ubicación"    value={location} />
               <InfoRow icon="📝" label="Descripción"  value={selected.description} />
               <InfoRow icon="📞" label="Contacto"     value={selected.contact} />
+              {contactActions.length > 0 && (
+                <div className="flex flex-wrap gap-2 pl-8">
+                  {contactActions.map((action) => (
+                    <a
+                      key={action.type}
+                      href={action.href}
+                      target={action.type === 'call' || action.type === 'email' ? undefined : '_blank'}
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 ring-1 ring-amber-200 hover:bg-amber-100 transition-colors"
+                    >
+                      <span aria-hidden="true">{CONTACT_ICON[action.type]}</span>
+                      {action.label}
+                    </a>
+                  ))}
+                </div>
+              )}
               {selected.foundDate && (
                 <InfoRow icon="📅" label="Fecha de hallazgo" value={selected.foundDate} />
               )}
