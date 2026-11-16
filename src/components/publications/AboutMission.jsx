@@ -2,9 +2,9 @@ import { useScrollAnimation } from './useScrollAnimation';
 
 const cards = [
   { icon: '📣', title: 'Reporta fácil', desc: 'En segundos desde tu celular, con foto y ubicación' },
-  { icon: '🔔', title: 'Alertas locales', desc: 'Avisamos a personas cercanas automáticamente' },
-  { icon: '🤝', title: 'Red solidaria', desc: 'Miles de vecinos dispuestos a ayudar' },
-  { icon: '🏠', title: 'Reencuentro feliz', desc: 'Coordinamos el regreso a casa de forma segura' },
+  { icon: '🔎', title: 'Búsqueda por zona', desc: 'Filtra los reportes de tu ciudad y tu barrio' },
+  { icon: '📞', title: 'Contacto directo', desc: 'Llama o escribe a quien publicó el reporte' },
+  { icon: '🏠', title: 'Reencuentro feliz', desc: 'Marca el reporte como reencontrado cuando vuelva a casa' },
 ];
 
 export default function AboutMission() {

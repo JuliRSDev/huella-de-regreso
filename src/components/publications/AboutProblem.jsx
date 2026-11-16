@@ -3,21 +3,21 @@ import { useScrollAnimation } from './useScrollAnimation';
 const problems = [
   {
     emoji: '😢',
-    stat: '1 de 3',
-    title: 'Mascotas se pierden',
-    desc: 'Al año, miles de familias colombianas viven la angustia de no saber dónde está su compañero fiel.',
+    stat: '7.196',
+    title: 'Rescates en Medellín',
+    desc: 'Animales de compañía rescatados por el centro de bienestar animal La Perla entre 2024 y julio de 2025.',
   },
   {
     emoji: '⏰',
-    stat: '48 hrs',
+    stat: '2 días',
     title: 'Ventana crítica',
-    desc: 'Las primeras 48 horas son decisivas. Sin una red de ayuda rápida, las posibilidades disminuyen significativamente.',
+    desc: 'En un estudio con 187 perros perdidos, la mitad de los que volvieron a casa lo hizo en dos días o menos.',
   },
   {
-    emoji: '💔',
-    stat: '60%',
-    title: 'Nunca regresan',
-    desc: 'Sin una plataforma de reporte centralizada, más de la mitad de las mascotas perdidas nunca vuelven a casa.',
+    emoji: '🏡',
+    stat: '93 %',
+    title: 'Sí vuelven a casa',
+    desc: 'Cuando se buscan, la mayoría regresa: en Estados Unidos se recuperó el 93 % de los perros perdidos.',
   },
 ];
 
@@ -92,6 +92,10 @@ export default function AboutProblem() {
           ))}
         </div>
 
+        <p className="font-inter text-xs text-gray-400 text-center -mt-8 mb-12">
+          Fuentes: El Colombiano (2025); Lord et al. (2007), <em>Journal of the American Veterinary Medical Association</em>; Weiss et al. (2012), <em>Animals</em>.
+        </p>
+
         {/* QUOTE */}
         <div
           ref={quoteRef}
@@ -103,7 +107,7 @@ export default function AboutProblem() {
         >
           <p className="font-nunito text-xl md:text-2xl font-bold text-white leading-relaxed max-w-3xl mx-auto">
             "No es solo tecnología... es <span className="text-yellow-400">esperanza</span>.
-            Cada reporte es una historia, cada alerta una posibilidad,
+            Cada reporte es una historia, cada aviso una posibilidad,
             y cada reencuentro... un final feliz."
           </p>
 

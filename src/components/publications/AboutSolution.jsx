@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { useScrollAnimation } from './useScrollAnimation';
 
 const steps = [
-  { icon: '📸', title: 'Publica el reporte', desc: 'Sube una foto de tu mascota, agrega su descripción y marca el lugar donde se perdió en el mapa.' },
-  { icon: '🔔', title: 'Alertas automáticas', desc: 'Notificamos al instante a todos los usuarios cercanos a la zona donde fue visto por última vez.' },
-  { icon: '👀', title: 'La comunidad busca', desc: 'Miles de personas atentas en tu ciudad revisan el reporte y reportan avistamientos en tiempo real.' },
-  { icon: '🏡', title: '¡Reencuentro!', desc: 'Coordinamos el reencuentro de forma segura, y celebramos junto a tu familia ese final feliz.' },
+  { icon: '📸', title: 'Publica el reporte', desc: 'Sube fotos de la mascota, su descripción y el departamento, la ciudad y el barrio donde se perdió o se encontró.' },
+  { icon: '🔎', title: 'Busca por zona', desc: 'Cualquier persona puede filtrar los reportes por departamento, ciudad, barrio, estado y tipo de mascota.' },
+  { icon: '📞', title: 'Contacto directo', desc: 'Quien vea a la mascota llama o escribe a quien publicó el reporte, sin intermediarios.' },
+  { icon: '🏡', title: '¡Reencuentro!', desc: 'Cuando la mascota vuelve a casa, el reporte se marca como reencontrado y deja de aparecer como activo.' },
 ];
 
 const diffs = [
-  { icon: '📍', title: 'Búsqueda geolocalizada', desc: 'Alertas solo a personas en el radio exacto donde se perdió tu mascota.' },
+  { icon: '📍', title: 'Búsqueda por barrio', desc: 'Filtros por departamento, ciudad y barrio, pensados para el Valle de Aburrá.' },
   { icon: '🌐', title: '100% gratuito', desc: 'Acceso libre para todas las familias. La ayuda no debe tener costo.' },
-  { icon: '🤝', title: 'Red de voluntarios', desc: 'Rescatistas, veterinarios y vecinos comprometidos en cada ciudad.' },
+  { icon: '🐾', title: 'Perdidas y encontradas', desc: 'Quien encuentra un animal en la calle también puede reportarlo, algo que no permite la línea oficial de búsqueda.' },
 ];
 
 export default function AboutSolution() {

@@ -3,13 +3,13 @@ import loginPNGMascota from "../../assets/login-pet-motion-float.webp"
 const FEATURES = [
   { icon: '📍', text: 'Reportes por ubicación' },
   { icon: '🐶', text: 'Comunidad que ayuda'    },
-  { icon: '🔔', text: 'Alertas inmediatas'      },
+  { icon: '📞', text: 'Contacto directo'        },
 ]
 
 const SlideInfo = () => (
   <div className='slide-info'>
     <p className='text-xs font-semibold uppercase tracking-widest text-amber-700 mb-3'>
-      🐾 PetFinder Colombia
+      🐾 Huella de Regreso
     </p>
 
     <h2 className='slide-info__title'>

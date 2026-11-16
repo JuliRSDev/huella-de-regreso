@@ -11,17 +11,17 @@ const steps = [
   },
   {
     title: "Difunde el reporte",
-    desc: "Comparte el enlace en redes y deja que la comunidad te ayude.",
+    desc: "Comparte Huella de Regreso en tus grupos para que más personas vean tu reporte.",
     emoji: "📢"
   },
   {
-    title: "Recibe alertas",
-    desc: "Personas cercanas podrán avisarte si ven algo similar.",
-    emoji: "🔔"
+    title: "Revisa los encontrados",
+    desc: "Busca en los reportes de mascotas encontradas en tu barrio: quizás alguien ya la tiene.",
+    emoji: "🔎"
   },
   {
     title: "Reencuéntrate ❤️",
-    desc: "Coordina el encuentro y vuelve a casa con tu mascota.",
+    desc: "Contacta a quien publicó el reporte y, cuando vuelva a casa, márcalo como reencontrado.",
     emoji: "🐾"
   }
 ]

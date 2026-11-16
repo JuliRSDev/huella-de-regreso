@@ -17,15 +17,15 @@ const FAQS = [
   },
   {
     q: "¿Qué hago si pasa mucho tiempo?",
-    a: "Puedes actualizar tu reporte para que vuelva a mostrarse a más personas."
+    a: "Mantén tu reporte al día con nuevas fotos o datos y revisa los reportes de mascotas encontradas en tu zona."
   },
   {
-    q: "¿Las notificaciones son rápidas?",
-    a: "Sí. Se envían en minutos a personas cercanas."
+    q: "¿Cómo contacto a quien publicó un reporte?",
+    a: "En el detalle de cada reporte aparece el contacto: puedes llamar, escribir por WhatsApp o enviar un correo."
   },
   {
     q: "¿Qué hago cuando la encuentro?",
-    a: "Marca el reporte como encontrado y cierra el proceso 🙌"
+    a: "Entra a Mis reportes y márcalo como reencontrado. Así todos saben que ya volvió a casa 🙌"
   }
 ];
 
@@ -55,8 +55,8 @@ const Faq = () => {
           </div>
 
           <div className="bg-white rounded-xl p-4 shadow-md">
-            <p className="text-xs text-gray-500">Notificaciones</p>
-            <p className="font-bold text-[#43A047]">En minutos</p>
+            <p className="text-xs text-gray-500">Búsqueda</p>
+            <p className="font-bold text-[#43A047]">Por barrio</p>
           </div>
 
           <div className="bg-white rounded-xl p-4 shadow-md">
@@ -66,7 +66,7 @@ const Faq = () => {
 
           <div className="bg-white rounded-xl p-4 shadow-md">
             <p className="text-xs text-gray-500">Cobertura</p>
-            <p className="font-bold text-[#43A047]">Comunidad</p>
+            <p className="font-bold text-[#43A047]">Toda Colombia</p>
           </div>
 
         </div>

@@ -1,20 +1,9 @@
-import { useState } from 'react';
 import { useScrollAnimation } from './useScrollAnimation';
 import { Link } from "react-router-dom";
 import '../../styles/quienes-somos.css'
 
 export default function AboutCTA() {
-  const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
   const [ref, visible] = useScrollAnimation(0.2);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSent(true);
-      setEmail('');
-    }
-  };
 
   return (
     <section className="bg-yellow-50 py-20 px-6 relative overflow-hidden text-center">
@@ -44,11 +33,11 @@ export default function AboutCTA() {
         <p className={`font-inter text-gray-600 text-lg leading-relaxed max-w-md mx-auto mb-10 transition-all duration-700 delay-200 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
-          Reporta una mascota perdida, comparte un avistamiento o simplemente sé parte de la red.
+          Reporta una mascota perdida o una que encontraste en la calle. Publicar es gratis y toma pocos minutos.
         </p>
 
         {/* BUTTONS */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-12 transition-all duration-700 delay-300 ${
+        <div className={`flex flex-wrap justify-center gap-3 transition-all duration-700 delay-300 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
           <Link 
@@ -64,51 +53,6 @@ export default function AboutCTA() {
           </Link>
         </div>
 
-        {/* DIVIDER */}
-        <div className={`flex items-center gap-4 mb-6 transition-opacity duration-700 delay-400 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-xs text-gray-400 uppercase tracking-wider whitespace-nowrap">
-            o recibe alertas en tu zona
-          </span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </div>
-
-        {/* NEWSLETTER */}
-        <div className={`transition-all duration-700 delay-500 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
-          <p className="text-sm text-gray-500 mb-3">
-            Te avisamos cuando haya mascotas perdidas cerca de ti
-          </p>
-
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row max-w-md mx-auto shadow-md rounded-lg overflow-hidden"
-          >
-            <input
-              type="email"
-              placeholder="tu@correo.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-3 border border-gray-200 outline-none focus:border-yellow-400 text-gray-800"
-            />
-
-            <button
-              type="submit"
-              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold px-6 py-3 transition"
-            >
-              Suscribirme
-            </button>
-          </form>
-
-          {sent && (
-            <p className="text-green-600 font-semibold mt-3 animate-fadeIn">
-              ✅ ¡Listo! Te avisaremos cuando haya mascotas cerca de ti.
-            </p>
-          )}
-        </div>
       </div>
     </section>
   );

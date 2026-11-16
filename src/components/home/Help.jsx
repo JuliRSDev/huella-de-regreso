@@ -1,8 +1,8 @@
 import iconForm from "../../assets/icon_form1.png";
-import iconNotification from "../../assets/icon_notificacion.png";
 import iconEncuentro from "../../assets/icon_reencuentro.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FaMapMarkedAlt } from "react-icons/fa";
 
 const Help = () => {
   return (
@@ -28,17 +28,17 @@ const Help = () => {
             title: "Publica tu reporte",
             desc: "Fácil, rápido y desde cualquier dispositivo"
           },{
-            img: iconNotification,
-            title: "Activa alertas",
-            desc: "Notificamos a personas cercanas automáticamente"
+            Icon: FaMapMarkedAlt,
+            title: "Busca por tu zona",
+            desc: "Filtra por departamento, ciudad, barrio y tipo de mascota"
           },{
             img: iconEncuentro,
             title: "Conecta y recupera",
-            desc: "Coordina de forma segura el reencuentro"
-          }].map((item, i) => (
+            desc: "Contacta directamente a quien publicó el reporte"
+          }].map((item) => (
 
             <motion.div
-              key={i}
+              key={item.title}
               whileHover={{ y: -10 }}
               className="group relative bg-white/60 backdrop-blur-xl p-8 rounded-3xl shadow-md hover:shadow-2xl transition overflow-hidden"
             >
@@ -47,11 +47,16 @@ const Help = () => {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-linear-to-br from-yellow-200/30 to-green-200/30 blur-2xl"></div>
 
               {/* ICON */}
-              <motion.img
-                src={item.img}
-                className="w-16 mb-6 mx-auto relative z-10"
-                whileHover={{ scale: 1.1, rotate: 3 }}
-              />
+              {item.Icon ? (
+                <item.Icon aria-hidden="true" className="w-16 h-16 mb-6 mx-auto relative z-10 text-[#43A047]" />
+              ) : (
+                <motion.img
+                  src={item.img}
+                  alt=""
+                  className="w-16 mb-6 mx-auto relative z-10"
+                  whileHover={{ scale: 1.1, rotate: 3 }}
+                />
+              )}
 
               <h3 className="text-xl font-bold text-center relative z-10">
                 {item.title}
@@ -75,7 +80,7 @@ const Help = () => {
         </h2>
 
         <p className="mt-4 text-gray-600 max-w-xl mx-auto">
-          Cada reporte es una historia, cada notificación una posibilidad,
+          Cada reporte es una historia, cada aviso una posibilidad,
           y cada reencuentro… un final feliz.
         </p>
 

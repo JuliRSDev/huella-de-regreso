@@ -19,7 +19,7 @@ const values = [
     icon: '⚡',
     title: 'Rapidez',
     tagline: 'Cada minuto importa',
-    desc: 'Las primeras horas son cruciales. Conectamos reportes con personas cercanas al instante.',
+    desc: 'Las primeras horas son cruciales. Publicar un reporte toma pocos minutos y aparece de inmediato para todos.',
   },
   {
     icon: '🔍',

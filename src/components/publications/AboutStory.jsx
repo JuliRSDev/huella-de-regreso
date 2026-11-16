@@ -2,34 +2,34 @@ import { useScrollAnimation } from './useScrollAnimation';
 
 const events = [
   {
-    year: 'Inicio 2025',
+    year: 'Inicio de 2026',
     emoji: '💡',
-    title: 'Todo empezó con una pérdida real',
-    text: 'Perder una mascota no es solo un momento difícil, es no saber qué hacer después. Entre redes sociales, grupos y publicaciones, todo se vuelve desordenado. Ahí nació la idea: crear algo que realmente ayudara.',
+    title: 'Una necesidad cercana',
+    text: 'Cuando una mascota se pierde, los avisos se reparten entre grupos de WhatsApp, redes sociales y carteles, y es difícil saber dónde buscar. De ahí nació la idea de reunir todo en un solo lugar.',
   },
   {
-    year: '2025',
-    emoji: '🛠️',
-    title: 'Construyendo desde cero',
-    text: 'El proyecto empezó como una idea simple: una plataforma clara para reportar mascotas perdidas. Sin equipo grande, sin inversión, solo con la intención de solucionar un problema real.',
-  },
-  {
-    year: '2025',
-    emoji: '🌍',
-    title: 'La comunidad empezó a crecer',
-    text: 'Las primeras personas comenzaron a usar la plataforma y compartir reportes. Poco a poco, más gente se unió: vecinos, amigos, rescatistas. La ayuda dejó de ser individual y pasó a ser colectiva.',
+    year: 'Primer semestre de 2026',
+    emoji: '🔎',
+    title: 'Investigación',
+    text: 'Como proyecto de grado se estudiaron soluciones parecidas, el marco legal y la forma de recoger información con los usuarios, y se definió la propuesta.',
   },
   {
     year: '2026',
-    emoji: '🎉',
-    title: 'Los primeros reencuentros',
-    text: 'Cada mascota encontrada confirmó que la idea funcionaba. No eran solo números: eran historias reales, familias completas otra vez.',
+    emoji: '🛠️',
+    title: 'Primer prototipo',
+    text: 'Se construyó la primera versión de la aplicación con React y Firebase: registro, publicación de reportes con fotos y búsqueda con filtros.',
   },
   {
-    year: 'Hoy',
+    year: 'Segundo semestre de 2026',
     emoji: '🚀',
-    title: 'Seguimos creciendo',
-    text: 'Huella de Regreso sigue evolucionando. Más funciones, más alcance, pero con el mismo objetivo: que ninguna mascota se pierda sin ser buscada.',
+    title: 'Nueva versión',
+    text: 'La plataforma se publicó en una nueva infraestructura y sumó cifras en tiempo real, tipo de mascota y el cierre de reportes con reencuentro.',
+  },
+  {
+    year: 'Lo que sigue',
+    emoji: '🧪',
+    title: 'Validación con usuarios',
+    text: 'El siguiente paso es probar la aplicación con personas del Valle de Aburrá y medir qué tan fácil les resulta usarla.',
   },
 ];
 
