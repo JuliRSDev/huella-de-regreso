@@ -81,36 +81,6 @@ const Help = () => {
 
       </section>
 
-      {/* 📊 STATS MODERNAS */}
-      <section className="py-16">
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
-
-          {[
-            { value: "+500", label: "Mascotas encontradas" },
-            { value: "+1200", label: "Reportes activos" },
-            { value: "+3000", label: "Usuarios ayudando" },
-            { value: "24/7", label: "Sistema activo" }
-          ].map((stat, i) => (
-
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition"
-            >
-              <h3 className="text-3xl font-bold text-[#43A047]">
-                {stat.value}
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">
-                {stat.label}
-              </p>
-            </div>
-
-          ))}
-
-        </div>
-
-      </section>
-
       {/* 🚀 CTA PRO */}
       <section className="py-24 px-6">
 

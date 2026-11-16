@@ -1,6 +1,15 @@
 import { motion } from "framer-motion";
+import { usePetStats, formatStat } from "../../hooks/usePetStats";
+
+const HERO_STATS = [
+  { key: "total", label: "Reportes publicados" },
+  { key: "lost", label: "Buscando a su familia" },
+  { key: "reunited", label: "Reencuentros" },
+];
 
 export default function AboutHero() {
+  const stats = usePetStats();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-white to-green-50 px-6">
 
@@ -49,8 +58,8 @@ export default function AboutHero() {
           transition={{ delay: 0.2 }}
           className="mt-6 font-inter text-gray-600 text-lg md:text-xl leading-relaxed"
         >
-          Somos una comunidad colombiana que usa tecnología y empatía
-          para reunir mascotas perdidas con quienes más las aman.
+          Una plataforma web, nacida como proyecto de grado de Ingeniería de Software,
+          que reúne en un solo lugar los reportes de mascotas perdidas y encontradas.
         </motion.p>
 
         {/* STATS */}
@@ -60,17 +69,13 @@ export default function AboutHero() {
           transition={{ delay: 0.4 }}
           className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
-          {[
-            { num: "+500", label: "Mascotas encontradas" },
-            { num: "+1200", label: "Reportes activos" },
-            { num: "+3000", label: "Personas ayudando" },
-          ].map((stat, i) => (
+          {HERO_STATS.map((stat) => (
             <div
-              key={i}
+              key={stat.key}
               className="bg-white/70 backdrop-blur-md p-4 rounded-xl shadow-md"
             >
               <p className="font-nunito text-2xl font-extrabold text-gray-900">
-                {stat.num}
+                {formatStat(stats, stat.key)}
               </p>
               <p className="font-inter text-sm text-gray-500">
                 {stat.label}

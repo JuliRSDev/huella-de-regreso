@@ -1,8 +1,17 @@
 import dogImg from "../../assets/pet-flot.webp"
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { usePetStats, formatStat } from "../../hooks/usePetStats";
+
+const BANNER_STATS = [
+  { key: "total", label: "Reportes publicados" },
+  { key: "lost", label: "Buscando a su familia" },
+  { key: "reunited", label: "Reencuentros" },
+];
 
 const Banner = () => {
+  const stats = usePetStats();
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#A8C7DC] via-[#cfe6f5] to-white py-24">
 
@@ -47,20 +56,14 @@ const Banner = () => {
           </div>
 
           {/* STATS */}
-          <div className="flex gap-8 mt-10 text-sm text-gray-600">
-            <div>
-              <p className="text-xl font-bold text-black">+500</p>
-              <span>Mascotas encontradas</span>
-            </div>
-            <div>
-              <p className="text-xl font-bold text-black">+1200</p>
-              <span>Reportes activos</span>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-black">+3000</h3>
-              <span>Usuarios ayudando</span>
-            </div>
-          </div>
+          <dl className="flex gap-8 mt-10 text-sm text-gray-600">
+            {BANNER_STATS.map(({ key, label }) => (
+              <div key={key} className="flex flex-col-reverse">
+                <dt>{label}</dt>
+                <dd className="text-xl font-bold text-black">{formatStat(stats, key)}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         {/* IMAGEN ANIMADA */}
