@@ -3,7 +3,7 @@ import { FaPaw } from "react-icons/fa"
 // Two short walks of three prints: one coming down onto the cat's body and one below the picture.
 // The picture is hidden on phones, so the prints are too.
 const WALKS = [
-  { top: "14%", left: "77%", angle: 100 },
+  { top: "27%", left: "73%", angle: 190 },
   { top: "80%", left: "57%", angle: 10 },
 ]
 
