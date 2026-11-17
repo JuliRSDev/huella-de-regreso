@@ -43,7 +43,7 @@ summary::-webkit-details-marker {
 .help-container p {
     color: var(--subtitulo-color);
 }
-/* HUELLAS DEL BANNER: aparecen una tras otra, como alguien caminando */
+/* HUELLAS DEL BANNER: aparecen una tras otra al cargar */
 @keyframes paw-step-in {
   from { opacity: 0; }
   to { opacity: 1; }

@@ -2,7 +2,7 @@ import dogImg from "../../assets/pet-flot.webp"
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePetStats, formatStat } from "../../hooks/usePetStats";
-import PawTrail from "./PawTrail";
+import HeroPaws from "./HeroPaws";
 
 const BANNER_STATS = [
   { key: "total", label: "Reportes publicados" },
@@ -14,13 +14,13 @@ const Banner = () => {
   const stats = usePetStats();
 
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-[#A8C7DC] via-[#cfe6f5] to-white pt-28 pb-32 md:pt-32 md:pb-28">
+    <section className="relative overflow-hidden bg-linear-to-br from-[#A8C7DC] via-[#cfe6f5] to-white pt-28 pb-24 md:pt-32 md:pb-20">
 
       {/* BLOBS decorativos */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-300/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-green-400/20 rounded-full blur-3xl"></div>
 
-      <PawTrail />
+      <HeroPaws />
 
       <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
 
