@@ -20,8 +20,6 @@ const Banner = () => {
       <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-300/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-green-400/20 rounded-full blur-3xl"></div>
 
-      <HeroPaws />
-
       <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
 
         {/* TEXTO */}
@@ -75,11 +73,15 @@ const Banner = () => {
           transition={{ duration: 4, repeat: Infinity }}
           className="hidden md:block"
         >
-          <img
-            src={dogImg}
-            alt="Mascota"
-            className="w-full max-w-md mx-auto drop-shadow-2xl"
-          />
+          {/* The prints live in the same box as the picture so they keep their place at any width */}
+          <div className="relative w-full max-w-md mx-auto">
+            <img
+              src={dogImg}
+              alt="Mascota"
+              className="w-full drop-shadow-2xl"
+            />
+            <HeroPaws />
+          </div>
         </motion.div>
 
       </div>

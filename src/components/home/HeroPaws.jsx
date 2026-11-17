@@ -1,10 +1,11 @@
 import { FaPaw } from "react-icons/fa"
 
-// Two short walks of three prints: one coming down onto the cat's body and one below the picture.
-// The picture is hidden on phones, so the prints are too.
+// Two short walks of three prints around the hero picture: one coming down onto the cat's body
+// and one under the cushion. Positions are percentages of the picture's own box, so the prints
+// move and scale with it at any screen width.
 const WALKS = [
-  { top: "27%", left: "73%", angle: 190 },
-  { top: "80%", left: "57%", angle: 10 },
+  { top: "11%", left: "59%", angle: 190 },
+  { top: "88.6%", left: "8%", angle: 10 },
 ]
 
 const STEPS = [
@@ -18,13 +19,13 @@ const HeroPaws = () => (
     {WALKS.map((walk, w) => (
       <div
         key={`${walk.top}-${walk.left}`}
-        className="absolute hidden md:block"
+        className="absolute"
         style={{ top: walk.top, left: walk.left, transform: `rotate(${walk.angle}deg)` }}
       >
         {STEPS.map((step, s) => (
           <FaPaw
             key={`${step.x}`}
-            className="paw-step absolute w-4 h-4 md:w-5 md:h-5 text-[#F7D047]/60"
+            className="paw-step absolute w-5 h-5 text-[#F7D047]/60"
             style={{ left: step.x, top: step.y, transform: "rotate(90deg)", animationDelay: `${w * 0.25 + s * 0.15}s` }}
           />
         ))}
