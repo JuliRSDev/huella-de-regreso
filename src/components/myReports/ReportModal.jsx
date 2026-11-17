@@ -161,6 +161,15 @@ const ReportModal = (
             </div>
 
             {/* Acciones */}
+            {mode === 'public' && (
+              <Link
+                to={`/reporte/${selected.id}`}
+                className="w-full text-center bg-[#FFD54F] hover:bg-yellow-400 text-gray-900 font-bold text-sm py-2.5 px-4 rounded-xl transition-colors"
+              >
+                📤 Compartir o imprimir cartel
+              </Link>
+            )}
+
             {mode === "owner" && status?.value !== 'reencontrada' && (
               <button
                 type="button"
