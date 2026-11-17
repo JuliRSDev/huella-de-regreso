@@ -4,7 +4,7 @@ import { FaPaw } from "react-icons/fa"
 // and one under the cushion. Positions are percentages of the picture's own box, so the prints
 // move and scale with it at any screen width.
 const WALKS = [
-  { top: "11%", left: "59%", angle: 190 },
+  { top: "11%", left: "67%", angle: 190 },
   { top: "88.6%", left: "8%", angle: 10 },
 ]
 
