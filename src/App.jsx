@@ -17,6 +17,9 @@ const Publicaciones = lazy(() => import("./pages/Publicaciones"))
 const QuienesSomos = lazy(() => import("./pages/QuienesSomos"))
 const MisReportes = lazy(() => import("./pages/MisReportes"))
 const EditarReporte = lazy(() => import("./pages/EditarReporte"))
+const Estadisticas = lazy(() => import("./pages/Estadisticas"))
+const Reporte = lazy(() => import("./pages/Reporte"))
+const Legal = lazy(() => import("./pages/Legal"))
 
 function App() {
   return (
@@ -91,6 +94,11 @@ function App() {
           {/* PUBLIC */}
           <Route path="/publicaciones" element={<Publicaciones />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
+          <Route path="/estadisticas" element={<Estadisticas />} />
+          <Route path="/reporte/:id" element={<Reporte />} />
+          <Route path="/terminos" element={<Legal page="terminos" />} />
+          <Route path="/privacidad" element={<Legal page="privacidad" />} />
+          <Route path="/seguridad" element={<Legal page="seguridad" />} />
         </Routes>
       </Suspense>
 

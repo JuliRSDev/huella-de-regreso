@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
-import { FaFacebook, FaInstagram, FaPaw } from "react-icons/fa"
+import { FaGithub, FaPaw } from "react-icons/fa"
 
 const Footer = () => {
   return (
-    <footer className="mt-32">
+    <footer className="mt-32 print:hidden">
 
         {/* CTA FINAL (LO MÁS IMPORTANTE) */}
         <section className="px-6 mb-20">
@@ -47,9 +47,9 @@ const Footer = () => {
             <div>
                 <h4 className="font-semibold mb-4">Información</h4>
                 <ul className="space-y-2 text-gray-400 text-sm">
-                <li className="hover:text-white cursor-pointer">Términos de servicio</li>
-                <li className="hover:text-white cursor-pointer">Política de privacidad</li>
-                <li className="hover:text-white cursor-pointer">Seguridad y estafas</li>
+                <li><Link to="/terminos" className="hover:text-white">Términos de servicio</Link></li>
+                <li><Link to="/privacidad" className="hover:text-white">Política de privacidad</Link></li>
+                <li><Link to="/seguridad" className="hover:text-white">Seguridad y estafas</Link></li>
                 </ul>
             </div>
 
@@ -57,21 +57,15 @@ const Footer = () => {
             <div>
                 <h4 className="font-semibold mb-4">Contacto</h4>
 
-                <p className="text-gray-400 text-sm">
-                info@huelladeregreso.com
-                </p>
-
-                <div className="flex gap-4 mt-6">
-
-                <a className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#1877F2] transition cursor-pointer">
-                    <FaFacebook />
+                <a
+                  href="https://github.com/JuliRSDev/huella-de-regreso"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-gray-400 text-sm hover:text-white"
+                >
+                  <FaGithub aria-hidden="true" className="w-5 h-5" />
+                  Repositorio del proyecto
                 </a>
-
-                <a className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#E1306C] transition cursor-pointer">
-                    <FaInstagram />
-                </a>
-
-                </div>
             </div>
 
             </div>

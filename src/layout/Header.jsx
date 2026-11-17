@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <>
-        <header className={`w-full fixed top-0 z-50 transition-all
+        <header className={`print:hidden w-full fixed top-0 z-50 transition-all
                 ${scrolled 
                   ? "bg-white/80 backdrop-blur-xl shadow-md" 
                   : "bg-transparent"}
@@ -78,6 +78,12 @@ const Header = () => {
                 <Link to="/publicaciones">
                   <li className='cursor-pointer relative group'>
                     Publicaciones
+                    <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
+                  </li>
+                </Link>
+                <Link to="/estadisticas">
+                  <li className='cursor-pointer relative group'>
+                    Estadísticas
                     <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
                   </li>
                 </Link>
@@ -161,6 +167,7 @@ const Header = () => {
                         <Link to='/' onClick={() => setMobileOpen(false)} className='py-2 px-3 rounded hover:bg-gray-50'>Inicio</Link>
                         <Link to='/quienes-somos' onClick={() => setMobileOpen(false)} className='py-2 px-3 rounded hover:bg-gray-50'>Quiénes somos</Link>
                         <Link to='/publicaciones' onClick={() => setMobileOpen(false)} className='py-2 px-3 rounded hover:bg-gray-50'>Publicaciones</Link>
+                        <Link to='/estadisticas' onClick={() => setMobileOpen(false)} className='py-2 px-3 rounded hover:bg-gray-50'>Estadísticas</Link>
                         </div>
                         {/* BOTON NUEVO REPORTE */}
                         <div className='border-t border-gray-100'>
