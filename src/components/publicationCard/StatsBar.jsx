@@ -2,16 +2,21 @@
  * StatsBar.jsx
  * Barra informativa debajo de los filtros que muestra:
  * - Total de resultados visibles
- * - Conteo de perdidos vs encontrados
+ * - Conteo por estado (perdidas, encontradas, reencontradas)
  * - Tiempo de la última actualización
  */
+
+import { findStatus } from '../../constants/pets'
+
+const countStatus = (reports, value) => reports.filter(r => findStatus(r.estado)?.value === value).length
 
 const StatsBar = ({ reports, loading }) => {
   if (loading) return null
 
   const total      = reports.length
-  const perdidos   = reports.filter(r => ['perdida','perdido'].includes(r.estado?.toLowerCase())).length
-  const encontrados = reports.filter(r => ['encontrada','encontrado'].includes(r.estado?.toLowerCase())).length
+  const perdidos      = countStatus(reports, 'perdida')
+  const encontrados   = countStatus(reports, 'encontrada')
+  const reencontrados = countStatus(reports, 'reencontrada')
 
   return (
     <div className='flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-500 mb-6 py-3 border-y border-gray-100'>
@@ -29,6 +34,12 @@ const StatsBar = ({ reports, loading }) => {
             <span className='inline-block w-2 h-2 rounded-full bg-emerald-400'/>
             {encontrados} encontrad{encontrados === 1 ? 'o' : 'os'}
           </span>
+          {reencontrados > 0 && (
+            <span className='flex items-center gap-1.5'>
+              <span className='inline-block w-2 h-2 rounded-full bg-sky-400'/>
+              {reencontrados} reencontrad{reencontrados === 1 ? 'o' : 'os'}
+            </span>
+          )}
         </>
       )}
 
