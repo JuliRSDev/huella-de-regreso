@@ -65,7 +65,7 @@ const Estadisticas = () => {
               <StatCard value={stats.byStatus.perdida} label="Buscando a su familia" hint="Reportes de mascotas perdidas" />
               <StatCard value={`${stats.reunionRate} %`} label="Tasa de reencuentro" hint="Reportes cerrados como reencontrados" />
               <StatCard
-                value={stats.avgDaysToReunion === null ? '—' : `${stats.avgDaysToReunion.toLocaleString('es-CO')} días`}
+                value={stats.avgDaysToReunion === null ? '—' : `${String(stats.avgDaysToReunion).replace('.', ',')} días`}
                 label="Tiempo promedio al reencuentro"
                 hint="Desde la publicación hasta el cierre"
               />
