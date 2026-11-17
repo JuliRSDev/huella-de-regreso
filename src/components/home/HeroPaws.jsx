@@ -1,18 +1,11 @@
 import { FaPaw } from "react-icons/fa"
 
-// A few short walks of three prints, placed in the free areas of the hero (never on the text or
-// the buttons). Each walk is rotated as a whole; the prints alternate a little to each side.
-// On phones the hero is one column, so only the walks under the stats are shown.
+// Two short walks of three prints framing the picture, one above and one below it.
+// The picture is hidden on phones, so the prints are too.
 const WALKS = [
-  { top: "26%", left: "3%", angle: 75, show: "desktop" },
-  { top: "30%", left: "44%", angle: -40, show: "desktop" },
-  { top: "80%", left: "57%", angle: 10, show: "desktop" },
-  { top: "14%", left: "86%", angle: 110, show: "desktop" },
-  { top: "91%", left: "3%", angle: 6, show: "all" },
-  { top: "91%", left: "62%", angle: -6, show: "mobile" },
+  { top: "18%", left: "57%", angle: 10 },
+  { top: "80%", left: "57%", angle: 10 },
 ]
-
-const VISIBILITY = { desktop: "hidden md:block", mobile: "md:hidden", all: "" }
 
 const STEPS = [
   { x: 0, y: -9 },
@@ -25,7 +18,7 @@ const HeroPaws = () => (
     {WALKS.map((walk, w) => (
       <div
         key={`${walk.top}-${walk.left}`}
-        className={`absolute ${VISIBILITY[walk.show]}`}
+        className="absolute hidden md:block"
         style={{ top: walk.top, left: walk.left, transform: `rotate(${walk.angle}deg)` }}
       >
         {STEPS.map((step, s) => (
