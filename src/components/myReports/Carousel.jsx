@@ -1,3 +1,4 @@
+import { cloudinaryImage } from '../../utils/cloudinaryImage'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 const Carousel = ({ images, index, setIndex }) => {
@@ -57,7 +58,7 @@ const Carousel = ({ images, index, setIndex }) => {
         onTouchEnd={onTouchEnd}
       >
         <img
-          src={images[index]}
+          src={cloudinaryImage(images[index], 900)}
           alt={`foto ${index + 1}`}
           className="w-full h-full object-cover"
           style={{ transition: 'opacity 0.22s ease, transform 0.22s ease', ...slideStyle }}
@@ -102,7 +103,7 @@ const Carousel = ({ images, index, setIndex }) => {
                   : 'border-transparent opacity-60 hover:opacity-90'
               }`}
             >
-              <img src={url} alt={`thumb ${i + 1}`} className="w-full h-full object-cover" />
+              <img src={cloudinaryImage(url, 120)} alt={`thumb ${i + 1}`} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>

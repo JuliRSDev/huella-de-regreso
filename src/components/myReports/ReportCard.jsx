@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { findStatus } from '../../constants/pets'
+import { cloudinaryImage } from '../../utils/cloudinaryImage'
 
 const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) => {
   const status   = findStatus(r.estado)
@@ -24,7 +25,7 @@ const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) 
       >
         {r.photoURLs?.[0]
           ? <img
-              src={r.photoURLs[0]}
+              src={cloudinaryImage(r.photoURLs[0], 480)}
               alt={r.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

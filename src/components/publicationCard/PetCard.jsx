@@ -7,6 +7,7 @@
  * - overlay de información al hacer hover
  */
 import { findSpecies, findStatus } from '../../constants/pets'
+import { cloudinaryImage } from '../../utils/cloudinaryImage'
 
 const PLACEHOLDER_ICON = (
   <svg className='w-12 h-12 text-gray-300' viewBox='0 0 24 24' fill='none'
@@ -62,7 +63,7 @@ const PetCard = ({ report, onClick }) => {
         {img ? (
           <>
             <img
-              src={img}
+              src={cloudinaryImage(img, 480)}
               alt={report.title}
               loading='lazy'
               className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-110'
