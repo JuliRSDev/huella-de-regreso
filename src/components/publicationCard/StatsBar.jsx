@@ -44,7 +44,7 @@ const StatsBar = ({ reports, loading }) => {
       )}
 
       {/* Timestamp */}
-      <span className='ml-auto flex items-center gap-1 text-xs text-gray-400'>
+      <span className='ml-auto flex items-center gap-1 text-xs text-gray-500'>
         <svg className='w-3.5 h-3.5' viewBox='0 0 24 24' fill='none'
           stroke='currentColor' strokeWidth='2' strokeLinecap='round'>
           <circle cx='12' cy='12' r='10'/>

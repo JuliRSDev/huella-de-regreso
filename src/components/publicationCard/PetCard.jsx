@@ -48,7 +48,6 @@ const PetCard = ({ report, onClick }) => {
       role='button'
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
-      aria-label={`Ver reporte: ${report.title}`}
       className='
         group relative bg-white rounded-2xl overflow-hidden
         shadow-sm border border-gray-100
@@ -99,11 +98,11 @@ const PetCard = ({ report, onClick }) => {
       {/* ── Contenido ── */}
       <div className='p-4'>
         <div className='flex items-center justify-between gap-2 mb-1'>
-          <h3 className='font-bold text-gray-900 text-base leading-snug truncate'>
+          <h2 className='font-bold text-gray-900 text-base leading-snug truncate'>
             {report.title || 'Sin título'}
-          </h3>
+          </h2>
           {species && (
-            <span className='shrink-0 text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full'>
+            <span className='shrink-0 text-xs font-medium text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full'>
               <span aria-hidden='true'>{species.emoji}</span> {species.label}
             </span>
           )}
@@ -123,14 +122,14 @@ const PetCard = ({ report, onClick }) => {
 
         {/* Descripción (preview) */}
         {report.description && (
-          <p className='text-xs text-gray-400 line-clamp-2 leading-relaxed mb-3'>
+          <p className='text-xs text-gray-500 line-clamp-2 leading-relaxed mb-3'>
             {report.description}
           </p>
         )}
 
         {/* Footer: fecha */}
         {dateStr && (
-          <div className='flex items-center gap-1 text-gray-400 text-xs border-t border-gray-100 pt-2.5 mt-1'>
+          <div className='flex items-center gap-1 text-gray-500 text-xs border-t border-gray-100 pt-2.5 mt-1'>
             <svg className='w-3.5 h-3.5' viewBox='0 0 24 24' fill='none'
               stroke='currentColor' strokeWidth='2' strokeLinecap='round'>
               <rect x='3' y='4' width='18' height='18' rx='2' ry='2'/>

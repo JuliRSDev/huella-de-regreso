@@ -71,7 +71,7 @@ const Footer = () => {
             </div>
 
             {/* LINEA FINAL */}
-            <div className="border-t border-white/10 mt-12 pt-6 text-center text-sm text-gray-500">
+            <div className="border-t border-white/10 mt-12 pt-6 text-center text-sm text-gray-400">
             © {new Date().getFullYear()} Julián Rodríguez — Todos los derechos reservados
             </div>
 

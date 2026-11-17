@@ -42,7 +42,7 @@ const Reporte = () => {
   const photo = report.photoURLs?.[0]
 
   return (
-    <main className="min-h-screen bg-gray-50 mt-20 print:mt-0 print:bg-white">
+    <div className="min-h-screen bg-gray-50 mt-20 print:mt-0 print:bg-white">
       <article className="max-w-4xl mx-auto px-4 py-10 print:py-0">
         <p className="text-center text-4xl md:text-5xl font-extrabold tracking-wide text-gray-900 mb-2">
           {POSTER_HEADLINE[status?.value] ?? 'REPORTE'}
@@ -97,7 +97,7 @@ const Reporte = () => {
           <Link to="/publicaciones" className="text-sm text-gray-500 underline print:hidden">← Volver a publicaciones</Link>
         </div>
       </article>
-    </main>
+    </div>
   )
 }
 

@@ -51,22 +51,22 @@ const Faq = () => {
 
           <div className="bg-white rounded-xl p-4 shadow-md">
             <p className="text-xs text-gray-500">Publicación</p>
-            <p className="font-bold text-[#43A047]">Inmediata</p>
+            <p className="font-bold text-[#2E7D32]">Inmediata</p>
           </div>
 
           <div className="bg-white rounded-xl p-4 shadow-md">
             <p className="text-xs text-gray-500">Búsqueda</p>
-            <p className="font-bold text-[#43A047]">Por barrio</p>
+            <p className="font-bold text-[#2E7D32]">Por barrio</p>
           </div>
 
           <div className="bg-white rounded-xl p-4 shadow-md">
             <p className="text-xs text-gray-500">Costo</p>
-            <p className="font-bold text-[#43A047]">Gratis</p>
+            <p className="font-bold text-[#2E7D32]">Gratis</p>
           </div>
 
           <div className="bg-white rounded-xl p-4 shadow-md">
             <p className="text-xs text-gray-500">Cobertura</p>
-            <p className="font-bold text-[#43A047]">Toda Colombia</p>
+            <p className="font-bold text-[#2E7D32]">Toda Colombia</p>
           </div>
 
         </div>
@@ -93,7 +93,7 @@ const Faq = () => {
               {/* PREGUNTA */}
               <div className="flex items-start gap-4">
 
-                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#43A047] text-white shadow-md">
+                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#2E7D32] text-white shadow-md">
                   <FaPaw />
                 </div>
 
@@ -132,7 +132,7 @@ const Faq = () => {
 
           <a
             href="/nuevo-reporte"
-            className="inline-block bg-[#43A047] text-white px-6 py-3 rounded-xl
+            className="inline-block bg-[#2E7D32] text-white px-6 py-3 rounded-xl
                       hover:scale-105 transition shadow-lg"
           >
             Crear reporte ahora

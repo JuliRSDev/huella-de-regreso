@@ -63,30 +63,30 @@ const Header = () => {
             {/* Desktop nav */}
             <nav className='hidden lg:flex items-center gap-8'>
               <ul className='flex gap-8 text-lg items-center'>
-                <Link to="/">
-                  <li className='cursor-pointer relative group'>
+                <li>
+                  <Link to="/" className='relative group'>
                     Inicio
                     <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
-                  </li>
-                </Link>
-                <Link to="/quienes-somos">
-                  <li className='cursor-pointer relative group'>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/quienes-somos" className='relative group'>
                     Quiénes somos
                     <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
-                  </li>
-                </Link>
-                <Link to="/publicaciones">
-                  <li className='cursor-pointer relative group'>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/publicaciones" className='relative group'>
                     Publicaciones
                     <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
-                  </li>
-                </Link>
-                <Link to="/estadisticas">
-                  <li className='cursor-pointer relative group'>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/estadisticas" className='relative group'>
                     Estadísticas
                     <span className='absolute left-0 -bottom-1 w-0 h-0.5 bg-[#FFD54F] transition-all group-hover:w-full'></span>
-                  </li>
-                </Link>
+                  </Link>
+                </li>
               </ul>
             </nav>
 
@@ -99,7 +99,7 @@ const Header = () => {
                           shadow-md hover:shadow-xl
                           hover:scale-105 transition-all duration-300'
               >
-                <img src={plusSVG} className='w-5' />
+                <img src={plusSVG} alt="" className='w-5' />
                 Nuevo reporte
               </Link>
 

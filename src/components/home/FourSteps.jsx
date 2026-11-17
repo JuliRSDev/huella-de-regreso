@@ -102,6 +102,7 @@ const FourSteps = () => {
 
                     <button
                         onClick={prev}
+                        aria-label="Paso anterior"
                         className="w-12 h-12 flex items-center justify-center rounded-full
                                 bg-white shadow-md hover:scale-110 transition cursor-pointer"
                     >
@@ -110,6 +111,7 @@ const FourSteps = () => {
 
                     <button
                         onClick={next}
+                        aria-label="Paso siguiente"
                         className="w-12 h-12 flex items-center justify-center rounded-full
                                 bg-[#FFD54F] shadow-md hover:scale-110 transition cursor-pointer"
                     >
@@ -125,6 +127,7 @@ const FourSteps = () => {
         {/* PERRO DECORATIVO */}
         <motion.img
             src={imgDogAnimate}
+            alt=""
             className="absolute bottom-10 right-10 w-56 hidden md:block opacity-90"
             animate={{ y: [0, -20, 0] }}
             transition={{ duration: 4, repeat: Infinity }}

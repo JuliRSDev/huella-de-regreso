@@ -76,7 +76,7 @@ const Publicaciones = () => {
         <div className='max-w-6xl mx-auto px-4 py-10'>
           <div className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8'>
             <div>
-              <h1 className='text-amber-500 text-3xl font-semibold uppercase tracking-widest mb-1'>
+              <h1 className='text-amber-700 text-3xl font-semibold uppercase tracking-widest mb-1'>
                 Mascotas en Colombia
               </h1>
               {/* <h1 className='text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight'>

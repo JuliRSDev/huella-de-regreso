@@ -35,7 +35,7 @@ const PAGES = {
 const Legal = ({ page }) => {
   const { title, sections } = PAGES[page]
   return (
-    <main className="min-h-screen bg-gray-50 mt-20">
+    <div className="min-h-screen bg-gray-50 mt-20">
       <article className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">{title}</h1>
         <div className="space-y-6">
@@ -52,7 +52,7 @@ const Legal = ({ page }) => {
           <Link to="/" className="underline">Volver al inicio</Link>
         </p>
       </article>
-    </main>
+    </div>
   )
 }
 
