@@ -13,13 +13,13 @@ const Banner = () => {
   const stats = usePetStats();
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#A8C7DC] via-[#cfe6f5] to-white py-24">
+    <section className="relative overflow-hidden bg-linear-to-br from-[#A8C7DC] via-[#cfe6f5] to-white pt-28 pb-16 md:pt-32 md:pb-20">
 
       {/* BLOBS decorativos */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-yellow-300/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-green-400/20 rounded-full blur-3xl"></div>
 
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center justify-center gap-12 h-[70vh]">
+      <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
 
         {/* TEXTO */}
         <div>
@@ -34,7 +34,7 @@ const Banner = () => {
             <span className="text-[#1B1B1B]">mascota?</span>
           </motion.h1>
 
-          <p className="mt-6 text-gray-700 max-w-md font-semibold">
+          <p className="mt-6 text-lg text-gray-700 max-w-md font-semibold">
             Publica reportes y conecta con personas que pueden ayudarte
             a reencontrarte con tu mascota.
           </p>
@@ -56,11 +56,11 @@ const Banner = () => {
           </div>
 
           {/* STATS */}
-          <dl className="flex gap-8 mt-10 text-sm text-gray-600">
+          <dl className="grid grid-cols-3 gap-3 mt-10 max-w-md text-xs sm:text-sm text-gray-600">
             {BANNER_STATS.map(({ key, label }) => (
-              <div key={key} className="flex flex-col-reverse">
+              <div key={key} className="flex flex-col-reverse justify-end bg-white/70 backdrop-blur rounded-2xl px-4 py-3 shadow-sm">
                 <dt>{label}</dt>
-                <dd className="text-xl font-bold text-black">{formatStat(stats, key)}</dd>
+                <dd className="text-2xl font-bold text-black">{formatStat(stats, key)}</dd>
               </div>
             ))}
           </dl>

@@ -27,7 +27,7 @@ export default function AboutProblem() {
   const [quoteRef, quoteVis] = useScrollAnimation(0.2);
 
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-yellow-50 to-orange-50 py-24 px-6">
+    <section className="relative overflow-hidden bg-linear-to-br from-yellow-50 to-orange-50 py-16 px-6">
 
       {/* PAW DECORATION */}
       <div className="absolute text-[180px] md:text-[260px] opacity-[0.04] -bottom-10 -right-5 select-none pointer-events-none">

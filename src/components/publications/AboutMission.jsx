@@ -12,7 +12,7 @@ export default function AboutMission() {
   const [rightRef, rightVis] = useScrollAnimation(0.2);
 
   return (
-    <section className="bg-white py-20 px-6 overflow-hidden">
+    <section className="bg-white py-16 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
         {/* LEFT */}

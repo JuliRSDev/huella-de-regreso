@@ -3,10 +3,10 @@ import { FaGithub, FaPaw } from "react-icons/fa"
 
 const Footer = () => {
   return (
-    <footer className="mt-32 print:hidden">
+    <footer className="mt-16 print:hidden">
 
         {/* CTA FINAL (LO MÁS IMPORTANTE) */}
-        <section className="px-6 mb-20">
+        <section className="px-6 mb-16">
             <div className="max-w-5xl mx-auto bg-[#FFD54F] rounded-3xl p-10 text-center shadow-xl">
             
             <h2 className="text-3xl font-bold text-black">

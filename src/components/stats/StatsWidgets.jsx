@@ -48,7 +48,7 @@ export const MonthChart = ({ months }) => {
           <div key={m.key} className="flex-1 flex flex-col items-center justify-end h-full">
             <span className="text-xs font-semibold text-gray-700 mb-1">{m.count}</span>
             <div className="w-full bg-amber-400 rounded-t-md" style={{ height: `${(m.count / max) * 100}%`, minHeight: m.count ? 4 : 0 }} />
-            <span className="text-xs text-gray-500 mt-2 capitalize">{m.label}</span>
+            <span className="text-xs text-gray-500 mt-2 first-letter:uppercase">{m.label}</span>
           </div>
         ))}
       </div>

@@ -21,7 +21,7 @@ export default function AboutSolution() {
   const [diffRef, diffVis] = useScrollAnimation(0.2);
 
   return (
-    <section className="bg-linear-to-br from-blue-100 via-blue-50 to-blue-100 py-20 px-6 md:px-12 overflow-hidden">
+    <section className="bg-linear-to-br from-blue-100 via-blue-50 to-blue-100 py-16 px-6 md:px-12 overflow-hidden">
       
       <div className="max-w-6xl mx-auto">
 

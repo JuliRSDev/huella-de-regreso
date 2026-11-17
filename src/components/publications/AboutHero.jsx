@@ -11,7 +11,7 @@ export default function AboutHero() {
   const stats = usePetStats();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-white to-green-50 px-6">
+    <section className="relative flex items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-white to-green-50 px-6 pt-32 pb-16">
 
       {/* BLOBS */}
       <div className="absolute w-125 h-125 bg-yellow-300/20 blur-3xl rounded-full -top-30 -left-30" /> 
@@ -84,23 +84,6 @@ export default function AboutHero() {
           ))}
         </motion.div>
 
-        {/* SCROLL */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          onClick={() =>
-            window.scrollBy({
-              top: window.innerHeight,
-              behavior: "smooth",
-            })
-          }
-          className="mt-12 flex flex-col items-center gap-2 cursor-pointer"
-        >
-          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce" />
-          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce delay-150" />
-          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce delay-300" />
-        </motion.div>
       </div>
     </section>
   );

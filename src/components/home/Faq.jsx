@@ -33,7 +33,7 @@ const Faq = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="py-24 px-6 bg-linear-to-b from-[#f8fafc] to-[#e2e8f0]">
+    <section className="py-16 px-6 bg-linear-to-b from-[#f8fafc] to-[#e2e8f0]">
 
       <div className="max-w-5xl mx-auto">
 
@@ -72,7 +72,7 @@ const Faq = () => {
         </div>
 
         {/* GRID MODERNO */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 items-start">
 
           {FAQS.map((item, index) => (
             <motion.div

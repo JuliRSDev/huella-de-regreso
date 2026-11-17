@@ -1,13 +1,12 @@
 import iconForm from "../../assets/icon_form1.png";
 import iconEncuentro from "../../assets/icon_reencuentro.png";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
 const Help = () => {
   return (
     <>
-      <section className="py-24 px-6">
+      <section className="py-16 px-6 bg-white">
 
         {/* TITLE */}
         <div className="text-center max-w-2xl mx-auto">
@@ -20,7 +19,7 @@ const Help = () => {
         </div>
 
         {/* CARDS */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 mt-12 max-w-6xl mx-auto">
 
           {/* CARD */}
           {[{
@@ -72,51 +71,6 @@ const Help = () => {
         </div>
       </section>
 
-      {/* 💛 SECCIÓN EMOCIONAL */}
-      <section className="text-center py-24 px-6 bg-linear-to-b from-transparent to-yellow-50">
-
-        <h2 className="text-3xl font-bold">
-          No es solo tecnología… es esperanza 🐾
-        </h2>
-
-        <p className="mt-4 text-gray-600 max-w-xl mx-auto">
-          Cada reporte es una historia, cada aviso una posibilidad,
-          y cada reencuentro… un final feliz.
-        </p>
-
-      </section>
-
-      {/* 🚀 CTA PRO */}
-      <section className="py-24 px-6">
-
-        <div className="relative bg-[#FFD54F] rounded-3xl py-20 px-8 max-w-5xl mx-auto shadow-2xl overflow-hidden">
-
-          {/* Glow background */}
-          <div className="absolute -top-20 -left-20 w-72 h-72 bg-white/30 blur-3xl rounded-full"></div>
-
-          <div className="relative text-center">
-
-            <h2 className="text-4xl font-bold text-black">
-              Empieza ahora mismo
-            </h2>
-
-            <p className="mt-4 text-black/70">
-              Tu mascota puede aparecer en cualquier momento
-            </p>
-
-            <Link
-              to="/nuevo-reporte"
-              className="mt-8 inline-block bg-black text-white px-8 py-4 rounded-xl 
-                        hover:scale-105 hover:shadow-lg transition"
-            >
-              Crear reporte
-            </Link>
-
-          </div>
-
-        </div>
-
-      </section>
     </>
   );
 };
