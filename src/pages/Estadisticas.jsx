@@ -3,6 +3,8 @@ import { useAllReports } from '../hooks/useAllReports'
 import { computeReportStats } from '../utils/reportStats'
 import { reportsToCsv } from '../utils/reportsCsv'
 import { StatCard, Panel, BarList, MonthChart } from '../components/stats/StatsWidgets'
+import PageBanner from '../components/common/PageBanner'
+import dogFace from '../assets/perrito-motion-fourSteps.webp'
 
 const STATUS_BARS = [
   { key: 'perdida', label: 'Perdidas', color: 'bg-red-400' },
@@ -25,35 +27,37 @@ const Estadisticas = () => {
   const stats = useMemo(() => computeReportStats(reports), [reports])
 
   return (
-    <div className="min-h-screen bg-gray-50 mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-amber-500 text-3xl font-semibold uppercase tracking-widest">Estadísticas</h1>
-            <p className="text-gray-500 mt-1 max-w-2xl">
-              Cifras calculadas en tiempo real a partir de los reportes publicados, para saber dónde se pierden más
-              mascotas y cuántas vuelven a casa.
-            </p>
+    <div className="min-h-screen bg-cream mt-20 print:bg-white">
+      <PageBanner
+        eyebrow="Datos para decidir"
+        title={<>Estadísticas <em className="font-normal">en vivo</em></>}
+        aside={
+          <div className="flex h-52 w-52 items-center justify-center rounded-full bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,0.4)]">
+            <img src={dogFace} alt="" className="w-32" />
           </div>
-          <div className="flex gap-2 print:hidden">
-            <button
-              type="button"
-              onClick={() => downloadCsv(reports)}
-              disabled={loading || !reports.length}
-              className="px-4 py-2.5 rounded-xl bg-[#FFD54F] font-semibold text-sm hover:bg-yellow-400 disabled:opacity-50"
-            >
-              ⬇️ Descargar datos (CSV)
-            </button>
-            <button
-              type="button"
-              onClick={() => window.print()}
-              className="px-4 py-2.5 rounded-xl border border-gray-300 font-semibold text-sm hover:bg-white"
-            >
-              🖨️ Imprimir informe
-            </button>
-          </div>
-        </header>
+        }
+        description="Cifras calculadas en tiempo real a partir de los reportes publicados, para saber dónde se pierden más mascotas y cuántas vuelven a casa."
+      >
+        <div className="flex flex-wrap gap-2 print:hidden">
+          <button
+            type="button"
+            onClick={() => downloadCsv(reports)}
+            disabled={loading || !reports.length}
+            className="px-5 py-3 rounded-xl bg-ink text-white font-bold text-sm shadow-sm hover:bg-black disabled:opacity-50"
+          >
+            ⬇️ Descargar datos (CSV)
+          </button>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="px-5 py-3 rounded-xl bg-white font-bold text-sm shadow-sm hover:-translate-y-0.5 transition"
+          >
+            🖨️ Imprimir informe
+          </button>
+        </div>
+      </PageBanner>
 
+      <div className="max-w-page mx-auto px-4 lg:px-8 py-10">
         {error && <p role="alert" className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">{error}</p>}
 
         {loading ? (

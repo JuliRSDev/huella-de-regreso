@@ -34,7 +34,7 @@ export default function AboutProblem() {
         🐾
       </div>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-page mx-auto">
 
         {/* HEADER */}
         <div ref={headerRef} className="text-center mb-20">

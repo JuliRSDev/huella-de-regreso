@@ -29,115 +29,95 @@ const FAQS = [
   }
 ];
 
+const QUICK_FACTS = [
+  { label: "Publicación", value: "Inmediata" },
+  { label: "Búsqueda", value: "Por barrio" },
+  { label: "Costo", value: "Gratis" },
+  { label: "Cobertura", value: "Toda Colombia" },
+];
+
 const Faq = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="py-16 px-6 bg-linear-to-b from-[#f8fafc] to-[#e2e8f0]">
+    <section className="py-20 px-6 lg:px-8 bg-white">
 
-      <div className="max-w-5xl mx-auto">
+      {/* Intro on the left and the questions on the right, so the section uses the full width */}
+      <div className="max-w-page mx-auto grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12 items-start">
 
-        {/* TITULO */}
-        <h3 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">
-          Preguntas frecuentes
-        </h3>
+        <div className="lg:sticky lg:top-28 text-center lg:text-left">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Resolvemos tus dudas</p>
+          <h2 className="mt-2 mb-4 font-display text-4xl md:text-5xl font-semibold text-ink">
+            Preguntas <em className="font-normal">frecuentes</em>
+          </h2>
 
-        <p className="text-center text-gray-500 mb-14 max-w-xl mx-auto">
-          Todo lo que necesitas saber para encontrar a tu mascota más rápido 🐾
-        </p>
-
-        {/* RESPUESTAS RÁPIDAS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14 text-center">
-
-          <div className="bg-white rounded-xl p-4 shadow-md">
-            <p className="text-xs text-gray-500">Publicación</p>
-            <p className="font-bold text-[#2E7D32]">Inmediata</p>
-          </div>
-
-          <div className="bg-white rounded-xl p-4 shadow-md">
-            <p className="text-xs text-gray-500">Búsqueda</p>
-            <p className="font-bold text-[#2E7D32]">Por barrio</p>
-          </div>
-
-          <div className="bg-white rounded-xl p-4 shadow-md">
-            <p className="text-xs text-gray-500">Costo</p>
-            <p className="font-bold text-[#2E7D32]">Gratis</p>
-          </div>
-
-          <div className="bg-white rounded-xl p-4 shadow-md">
-            <p className="text-xs text-gray-500">Cobertura</p>
-            <p className="font-bold text-[#2E7D32]">Toda Colombia</p>
-          </div>
-
-        </div>
-
-        {/* GRID MODERNO */}
-        <div className="grid md:grid-cols-2 gap-6 items-start">
-
-          {FAQS.map((item, index) => (
-            <motion.div
-              key={index}
-              layout
-              whileHover={{ scale: 1.02 }}
-              onClick={() => setActive(active === index ? null : index)}
-              className={`
-                cursor-pointer rounded-2xl p-6
-                bg-white/80 backdrop-blur-md
-                border border-gray-200
-                shadow-md hover:shadow-xl hover:-translate-y-1
-                transition-all duration-300
-                ${active === index ? "ring-2 ring-[#43A047]" : ""}
-              `}
-            >
-
-              {/* PREGUNTA */}
-              <div className="flex items-start gap-4">
-
-                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#2E7D32] text-white shadow-md">
-                  <FaPaw />
-                </div>
-
-                <h4 className="font-semibold text-gray-800 text-lg">
-                  {item.q}
-                </h4>
-
-              </div>
-
-              {/* RESPUESTA ANIMADA */}
-              <AnimatePresence>
-                {active === index && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-gray-600 mt-4 text-sm leading-relaxed"
-                  >
-                    {item.a}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-
-            </motion.div>
-          ))}
-
-        </div>
-
-        {/* CTA FINAL */}
-        <div className="text-center mt-20">
-
-          <p className="text-gray-600 mb-4">
-            ¿Aún tienes dudas?
+          <p className="text-gray-600 max-w-xl mx-auto lg:mx-0">
+            Todo lo que necesitas saber para encontrar a tu mascota más rápido 🐾
           </p>
 
-          <a
-            href="/nuevo-reporte"
-            className="inline-block bg-[#2E7D32] text-white px-6 py-3 rounded-xl
-                      hover:scale-105 transition shadow-lg"
-          >
-            Crear reporte ahora
-          </a>
+          {/* RESPUESTAS RÁPIDAS */}
+          <div className="grid grid-cols-2 gap-4 mt-8 text-center">
+            {QUICK_FACTS.map((fact) => (
+              <div key={fact.label} className="bg-cream rounded-2xl p-4 ring-1 ring-black/5">
+                <p className="text-xs text-gray-500">{fact.label}</p>
+                <p className="font-display text-xl font-semibold text-ink">{fact.value}</p>
+              </div>
+            ))}
+          </div>
 
+          {/* CTA */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center lg:items-center gap-4 justify-center lg:justify-start">
+            <p className="text-gray-600">¿Aún tienes dudas?</p>
+            <a
+              href="/nuevo-reporte"
+              className="inline-block bg-ink text-white px-6 py-3 rounded-xl font-bold hover:bg-black transition shadow-lg"
+            >
+              Crear reporte ahora
+            </a>
+          </div>
+        </div>
+
+        <div className="grid gap-4">
+          {FAQS.map((item, index) => {
+            const open = active === index;
+            return (
+              <motion.div
+                key={item.q}
+                layout
+                className={`
+                  rounded-2xl hover:shadow-lg transition-shadow duration-300
+                  ${open ? "bg-white ring-2 ring-sun-deep shadow-lg" : "bg-cream ring-1 ring-black/5"}
+                `}
+              >
+                <button
+                  type="button"
+                  aria-expanded={open}
+                  onClick={() => setActive(open ? null : index)}
+                  className="w-full flex items-center gap-4 p-5 text-left cursor-pointer"
+                >
+                  <span className="w-10 h-10 shrink-0 flex items-center justify-center rounded-full bg-sun text-ink">
+                    <FaPaw aria-hidden="true" />
+                  </span>
+                  <span className="font-semibold text-gray-800 text-lg">{item.q}</span>
+                </button>
+
+                {/* RESPUESTA ANIMADA */}
+                <AnimatePresence>
+                  {open && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-gray-600 px-5 pb-5 pl-19 text-sm leading-relaxed"
+                    >
+                      {item.a}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

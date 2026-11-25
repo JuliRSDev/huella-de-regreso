@@ -7,19 +7,20 @@ const Footer = () => {
 
         {/* CTA FINAL (LO MÁS IMPORTANTE) */}
         <section className="px-6 mb-16">
-            <div className="max-w-5xl mx-auto bg-[#FFD54F] rounded-3xl p-10 text-center shadow-xl">
+            <div className="relative overflow-hidden max-w-page mx-auto bg-sun rounded-3xl p-10 md:p-14 text-center shadow-xl">
             
-            <h2 className="text-3xl font-bold text-black">
-                ¿Listo para encontrar a tu mascota? 🐾
+            <div aria-hidden="true" className="absolute inset-0 bg-paws"></div>
+            <h2 className="relative font-display text-3xl md:text-5xl font-semibold text-ink">
+                ¿Listo para encontrar a <em className="font-normal">tu mascota</em>?
             </h2>
 
-            <p className="text-black/70 mt-3">
+            <p className="relative text-ink/75 mt-3">
                 Publica un reporte y deja que la comunidad te ayude
             </p>
 
             <Link
                 to="/nuevo-reporte"
-                className="inline-block mt-6 px-6 py-3 bg-black text-white rounded-xl hover:scale-105 transition"
+                className="relative inline-block mt-6 px-6 py-3 bg-ink text-white font-bold rounded-xl hover:bg-black transition"
             >
                 Crear reporte
             </Link>
@@ -28,9 +29,9 @@ const Footer = () => {
         </section>
 
       {/* FOOTER PRINCIPAL */}
-        <div className="bg-[#0f172a] text-white py-16 px-6">
+        <div className="bg-ink text-white py-16 px-6">
 
-            <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+            <div className="max-w-page mx-auto grid md:grid-cols-3 gap-12">
 
             {/* BRAND */}
             <div>

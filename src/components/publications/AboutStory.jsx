@@ -79,7 +79,7 @@ export default function AboutStory() {
   return (
     <section className="bg-white py-16 px-6 relative overflow-hidden">
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
         {/* HEADER */}
         <div ref={headerRef} className="text-center mb-20">

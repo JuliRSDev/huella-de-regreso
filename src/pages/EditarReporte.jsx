@@ -88,7 +88,7 @@ const EditarReporte = () => {
 
   // ── Render ─────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-50 py-10 mt-16">
+    <div className="min-h-screen bg-cream bg-paws py-10 mt-16">
       <div className="max-w-2xl mx-auto px-4">
 
         {/* Cabecera */}

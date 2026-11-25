@@ -13,7 +13,7 @@ export default function AboutMission() {
 
   return (
     <section className="bg-white py-16 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+      <div className="max-w-page mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
         {/* LEFT */}
         <div ref={leftRef}>

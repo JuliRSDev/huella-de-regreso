@@ -2,9 +2,9 @@
 
 export const StatCard = ({ value, label, hint }) => (
   <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-    <p className="text-3xl font-extrabold text-gray-900">{value}</p>
+    <p className="font-display text-4xl font-semibold text-ink">{value}</p>
     <p className="text-sm font-semibold text-gray-700 mt-1">{label}</p>
-    {hint && <p className="text-xs text-gray-400 mt-1">{hint}</p>}
+    {hint && <p className="text-xs text-gray-500 mt-1">{hint}</p>}
   </div>
 )
 

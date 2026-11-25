@@ -4,8 +4,26 @@
 @theme {
   --font-nunito: "Nunito", sans-serif;
   --font-inter: "Inter", sans-serif;
+  /* The pair the login page uses: Fraunces for titles, DM Sans for everything else */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", "Inter", sans-serif;
+
+  /* Same width as the header's container, so every page lines up with the menu */
+  --container-page: 96rem;
+
+  /* Login palette */
+  --color-sun: #FFD54F;
+  --color-sun-deep: #F9A825;
+  --color-cream: #F9F6F1;
+  --color-ink: #1A1A1A;
 }
 
 body {
-  font-family: var(--font-inter);
+  font-family: var(--font-body);
+}
+
+/* Faint trail of paw prints for tinted sections and banners */
+@utility bg-paws {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%231A1A1A' fill-opacity='0.05'%3E%3Cg transform='translate(18 22) rotate(-18)'%3E%3Cellipse cx='10' cy='16' rx='7' ry='6'/%3E%3Ccircle cx='2' cy='7' r='3'/%3E%3Ccircle cx='8' cy='2' r='3'/%3E%3Ccircle cx='14' cy='2' r='3'/%3E%3Ccircle cx='19' cy='7' r='3'/%3E%3C/g%3E%3Cg transform='translate(72 70) rotate(22)'%3E%3Cellipse cx='10' cy='16' rx='7' ry='6'/%3E%3Ccircle cx='2' cy='7' r='3'/%3E%3Ccircle cx='8' cy='2' r='3'/%3E%3Ccircle cx='14' cy='2' r='3'/%3E%3Ccircle cx='19' cy='7' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
 }
