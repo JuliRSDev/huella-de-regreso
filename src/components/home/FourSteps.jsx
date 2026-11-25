@@ -49,7 +49,7 @@ const FourSteps = () => {
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun text-ink text-xl">
                     <Icon aria-hidden="true" />
                   </span>
-                  <span className="font-display text-5xl font-semibold text-black/10">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-4xl font-semibold text-amber-600">{String(i + 1).padStart(2, "0")}</span>
                 </div>
                 <h3 className="mt-5 text-lg font-bold text-ink">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">{step.desc}</p>

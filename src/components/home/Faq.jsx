@@ -59,7 +59,7 @@ const Faq = () => {
           <div className="grid grid-cols-2 gap-4 mt-8 text-center">
             {QUICK_FACTS.map((fact) => (
               <div key={fact.label} className="bg-cream rounded-2xl p-4 ring-1 ring-black/5">
-                <p className="text-xs text-gray-500">{fact.label}</p>
+                <p className="text-xs text-gray-600">{fact.label}</p>
                 <p className="font-display text-xl font-semibold text-ink">{fact.value}</p>
               </div>
             ))}
