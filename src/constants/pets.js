@@ -7,9 +7,9 @@ export const SPECIES = [
 ]
 
 export const STATUSES = [
-  { value: 'perdida', label: 'Perdida', emoji: '🔴', badge: 'bg-red-100 text-red-700 ring-1 ring-red-200' },
-  { value: 'encontrada', label: 'Encontrada', emoji: '🟢', badge: 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200' },
-  { value: 'reencontrada', label: 'Reencontrada', emoji: '🏡', badge: 'bg-sky-100 text-sky-700 ring-1 ring-sky-200' },
+  { value: 'perdida', label: 'Perdida', emoji: '🔴', badge: 'bg-red-100 text-red-700 ring-1 ring-red-200', dot: 'bg-red-500' },
+  { value: 'encontrada', label: 'Encontrada', emoji: '🟢', badge: 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200', dot: 'bg-emerald-500' },
+  { value: 'reencontrada', label: 'Reencontrada', emoji: '🏡', badge: 'bg-sky-100 text-sky-700 ring-1 ring-sky-200', dot: 'bg-sky-500' },
 ]
 
 // Reports created before the statuses were unified used masculine forms.

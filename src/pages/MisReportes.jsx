@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom'
 
 // Lazy components
 const ReportCard  = lazy(() => import('../components/myReports/ReportCard'))
-const ReportModal = lazy(() => import('../components/myReports/ReportModal'))
+// The modal chunk is fetched when the page loads, so opening a report does not wait for it
+const loadReportModal = () => import('../components/myReports/ReportModal')
+const ReportModal = lazy(loadReportModal)
 
 // ── Empty state ────────────────────────────────────────────────────────────────
 const EmptyState = () => (
@@ -53,6 +55,7 @@ const MisReportes = () => {
 
   useEffect(() => {
     isTouchRef.current = window.matchMedia('(hover: none)').matches
+    loadReportModal()
   }, [])
 
   useEffect(() => {
@@ -109,8 +112,8 @@ const MisReportes = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="min-h-screen bg-cream mt-20">
+      <div className="max-w-page mx-auto px-4 lg:px-8 py-10">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -131,7 +134,7 @@ const MisReportes = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
             : reports.length === 0

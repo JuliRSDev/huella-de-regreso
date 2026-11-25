@@ -1,126 +1,74 @@
+import { useEffect, useRef } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
 import { cloudinaryImage } from '../../utils/cloudinaryImage'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { CARD_IMAGE_WIDTH, preloadDetailImage } from '../../utils/preloadImage'
+import ProgressiveImage from '../common/ProgressiveImage'
 
-const Carousel = ({ images, index, setIndex }) => {
-  const isHovering  = useRef(false)
+const arrowCls = 'absolute top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/85 text-ink shadow-lg backdrop-blur transition hover:bg-white hover:scale-105 cursor-pointer'
+
+/**
+ * Photo gallery of the report detail: the photo over a blurred copy of itself, arrows, swipe and
+ * thumbnails. It fills its parent, so the parent decides the size.
+ */
+const Carousel = ({ images, index, setIndex, title = 'la mascota' }) => {
   const touchStartX = useRef(null)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [direction, setDirection] = useState(null) // 'left' | 'right'
+  const count = images?.length ?? 0
 
-  const go = useCallback((next, dir) => {
-    if (isAnimating) return
-    setDirection(dir)
-    setIsAnimating(true)
-    setTimeout(() => {
-      setIndex(next)
-      setIsAnimating(false)
-    }, 220)
-  }, [isAnimating, setIndex])
-
-  const prev = () => go(index === 0 ? images.length - 1 : index - 1, 'right')
-  const next = () => go(index === images.length - 1 ? 0 : index + 1, 'left')
-
-  // Auto-play
+  // The next photo starts downloading while the current one is on screen
   useEffect(() => {
-    if (!images?.length || images.length < 2) return
-    const id = setInterval(() => {
-      if (!isHovering.current) next()
-    }, 3500)
-    return () => clearInterval(id)
-  }, [images, index])
+    if (count > 1) preloadDetailImage(images[(index + 1) % count])
+  }, [images, index, count])
 
-  // Touch swipe
+  if (!count) return null
+
+  const prev = () => setIndex(index === 0 ? count - 1 : index - 1)
+  const next = () => setIndex(index === count - 1 ? 0 : index + 1)
+
   const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX }
-  const onTouchEnd   = (e) => {
+  const onTouchEnd = (e) => {
     if (touchStartX.current === null) return
     const delta = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(delta) > 40) delta > 0 ? next() : prev()
+    if (Math.abs(delta) > 40) (delta > 0 ? next : prev)()
     touchStartX.current = null
   }
 
-  if (!images?.length) return null
-
-  const slideStyle = isAnimating
-    ? { opacity: 0, transform: direction === 'left' ? 'translateX(-8px)' : 'translateX(8px)' }
-    : { opacity: 1, transform: 'translateX(0)' }
-
   return (
-    <div
-      className="select-none"
-      onMouseEnter={() => isHovering.current = true}
-      onMouseLeave={() => isHovering.current = false}
-    >
-      {/* Imagen principal */}
-      <div
-        className="relative overflow-hidden rounded-xl bg-gray-100"
-        style={{ height: '320px' }}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        <img
-          src={cloudinaryImage(images[index], 900)}
-          alt={`foto ${index + 1}`}
-          className="w-full h-full object-cover"
-          style={{ transition: 'opacity 0.22s ease, transform 0.22s ease', ...slideStyle }}
-        />
+    <div className="relative h-full w-full select-none overflow-hidden bg-ink" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+      <img
+        src={cloudinaryImage(images[index], CARD_IMAGE_WIDTH)}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full scale-110 object-cover opacity-70 blur-2xl"
+      />
+      <ProgressiveImage key={images[index]} url={images[index]} alt={`Foto ${index + 1} de ${title}`} className="absolute inset-0" />
 
-        {/* Flechas — solo si hay más de 1 */}
-        {images.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white flex items-center justify-center shadow-md transition-all hover:scale-105 cursor-pointer"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white flex items-center justify-center shadow-md transition-all hover:scale-105 cursor-pointer"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </>
-        )}
+      {count > 1 && (
+        <>
+          <button type="button" aria-label="Foto anterior" onClick={prev} className={`${arrowCls} left-4`}>
+            <FaChevronLeft aria-hidden="true" />
+          </button>
+          <button type="button" aria-label="Foto siguiente" onClick={next} className={`${arrowCls} right-4`}>
+            <FaChevronRight aria-hidden="true" />
+          </button>
 
-        {/* Contador */}
-        {images.length > 1 && (
-          <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs font-medium px-2 py-1 rounded-full backdrop-blur-sm">
-            {index + 1} / {images.length}
+          <div className="absolute inset-x-0 bottom-4 flex justify-center">
+            <div className="flex gap-2 rounded-2xl bg-black/35 p-2 backdrop-blur-md">
+              {images.map((url, i) => (
+                <button
+                  key={url}
+                  type="button"
+                  aria-label={`Ver foto ${i + 1}`}
+                  aria-current={i === index}
+                  onClick={() => setIndex(i)}
+                  className={`h-12 w-12 overflow-hidden rounded-xl ring-2 transition cursor-pointer ${i === index ? 'ring-sun' : 'ring-transparent opacity-60 hover:opacity-100'}`}
+                >
+                  <img src={cloudinaryImage(url, 120)} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* Thumbnails */}
-      {images.length > 1 && (
-        <div className="flex gap-2 mt-3 justify-center flex-wrap">
-          {images.map((url, i) => (
-            <button
-              key={i}
-              onClick={() => go(i, i > index ? 'left' : 'right')}
-              className={`cursor-pointer w-14 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${
-                i === index
-                  ? 'border-yellow-400 scale-105 shadow-md'
-                  : 'border-transparent opacity-60 hover:opacity-90'
-              }`}
-            >
-              <img src={cloudinaryImage(url, 120)} alt={`thumb ${i + 1}`} className="w-full h-full object-cover" />
-            </button>
-          ))}
-        </div>
+        </>
       )}
-
-      {/* Dots — solo si hay thumbnails no alcanzables por espacio */}
-      <div className="flex gap-1.5 mt-2.5 justify-center">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i, i > index ? 'left' : 'right')}
-            className={`rounded-full transition-all duration-200 ${
-              i === index ? 'w-5 h-2 bg-yellow-400' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-            }`}
-          />
-        ))}
-      </div>
     </div>
   )
 }

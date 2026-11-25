@@ -1,13 +1,26 @@
 import { lazy, Suspense, useState, useMemo, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { usePublicaciones } from '../components/publicationCard/Usepublicaciones'
 import SearchBar  from '../components/publicationCard/SearchBar'
 import FilterBar  from '../components/publicationCard/Filterbar'
 import StatsBar   from '../components/publicationCard/StatsBar'
 import PetGrid    from '../components/publicationCard/PetGrid'
 import { barrioSlug } from '../utils/barrio'
+import PageBanner from '../components/common/PageBanner'
+import StatusCounters from '../components/common/StatusCounters'
 
-// Modal con lazy load (componente pesado)
-const ReportModal = lazy(() => import('../components/myReports/ReportModal'))
+// Modal con lazy load (componente pesado); se descarga apenas carga la página para que abrir un reporte no espere
+const loadReportModal = () => import('../components/myReports/ReportModal')
+const ReportModal = lazy(loadReportModal)
+
+const RELATED_COUNT = 3
+
+const LiveDot = () => (
+  <span className='relative flex h-2.5 w-2.5'>
+    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75'/>
+    <span className='relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500'/>
+  </span>
+)
 
 /* ─────────────────────────────────────────────
    Publicaciones — página principal
@@ -20,13 +33,16 @@ const Publicaciones = () => {
   const [estadoFilter,     setEstadoFilter]      = useState('')
   const [especieFilter,    setEspecieFilter]     = useState('')
 
-  /* Búsqueda client-side */
-  const [searchQuery,    setSearchQuery]    = useState('')
+  /* Búsqueda client-side; el buscador del inicio llega como ?q= */
+  const [searchParams] = useSearchParams()
+  const [searchQuery,    setSearchQuery]    = useState(() => searchParams.get('q') ?? '')
   const [debouncedSearch, setDebouncedSearch] = useState('')
 
   /* Modal */
   const [selected,      setSelected]      = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
+
+  useEffect(() => { loadReportModal() }, [])
 
   /* Debounce búsqueda */
   useEffect(() => {
@@ -67,43 +83,29 @@ const Publicaciones = () => {
     })
   }, [reports, debouncedSearch])
 
+  /* Otros reportes de la misma ciudad para la ventana de detalle */
+  const related = useMemo(() => {
+    if (!selected?.city) return []
+    return reports.filter(r => r.id !== selected.id && r.city === selected.city).slice(0, RELATED_COUNT)
+  }, [reports, selected])
+
+  const selectReport = (r) => { setSelected(r); setSelectedIndex(0) }
+
   const hasFilters = !!(departmentFilter || cityFilter || barrioFilter || estadoFilter || especieFilter || debouncedSearch)
 
   return (
-    <div className='min-h-screen bg-gray-50 mt-20'>
-      {/* ── Hero / Header ── */}
-      <div className='bg-white border-b border-gray-100'>
-        <div className='max-w-6xl mx-auto px-4 py-10'>
-          <div className='flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8'>
-            <div>
-              <h1 className='text-amber-700 text-3xl font-semibold uppercase tracking-widest mb-1'>
-                Mascotas en Colombia
-              </h1>
-              {/* <h1 className='text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight'>
-                Publicaciones
-              </h1> */}
-              <p className='text-gray-500 text-sm mt-1.5'>
-                Reportes de mascotas perdidas y encontradas en tiempo real.
-              </p>
-            </div>
-
-            {/* Indicador en tiempo real */}
-            <div className='flex items-center gap-2 text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 self-start sm:self-auto'>
-              <span className='relative flex h-2.5 w-2.5'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75'/>
-                <span className='relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500'/>
-              </span>
-              En vivo
-            </div>
-          </div>
-
-          {/* Búsqueda */}
-          <SearchBar value={searchQuery} onChange={setSearchQuery} />
-        </div>
-      </div>
+    <div className='min-h-screen bg-cream mt-20'>
+      <PageBanner
+        eyebrow={<><LiveDot /> En vivo</>}
+        title={<>Mascotas perdidas<br />y <em className='font-normal'>encontradas</em></>}
+        description='Reportes publicados por la comunidad en Colombia, actualizados en tiempo real. Busca por nombre, barrio o descripción, o combina los filtros.'
+        aside={<StatusCounters />}
+      >
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      </PageBanner>
 
       {/* ── Contenido ── */}
-      <div className='max-w-6xl mx-auto px-4 py-8'>
+      <div className='max-w-page mx-auto px-4 lg:px-8 py-8'>
 
         {/* Filtros */}
         <div className='mb-6'>
@@ -141,7 +143,7 @@ const Publicaciones = () => {
           loadingMore={loadingMore}
           loadMore={loadMore}
           hasFilters={hasFilters}
-          onSelect={(r) => { setSelected(r); setSelectedIndex(0) }}
+          onSelect={selectReport}
         />
       </div>
 
@@ -153,6 +155,8 @@ const Publicaciones = () => {
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
           mode='public'
+          related={related}
+          onSelectRelated={selectReport}
         />
       </Suspense>
     </div>

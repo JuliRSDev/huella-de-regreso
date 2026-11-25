@@ -1,36 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FaPaw, FaXmark, FaShareNodes } from 'react-icons/fa6'
 import Carousel from './Carousel'
 import { findSpecies, findStatus } from '../../constants/pets'
-import { contactLinks } from '../../utils/contactLinks'
-
-const CONTACT_ICON = { call: '📞', whatsapp: '💬', email: '✉️', link: '🔗' }
-
-const InfoRow = ({ icon, label, value }) => {
-  if (!value) return null
-  return (
-    <div className="flex gap-3">
-      <span className="text-lg leading-none mt-0.5">{icon}</span>
-      <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{label}</p>
-        <p className="text-sm text-gray-800 mt-0.5 leading-relaxed">{value}</p>
-      </div>
-    </div>
-  )
-}
+import ReportFacts from '../report/ReportFacts'
+import ContactPanel from '../report/ContactPanel'
+import RelatedReports from '../report/RelatedReports'
 
 const ReportModal = (
-  { 
-    selected, 
-    setSelected, 
-    handleDelete, 
+  {
+    selected,
+    setSelected,
+    handleDelete,
     onReunite,
-    selectedIndex, 
+    selectedIndex,
     setSelectedIndex,
-    mode = "public" // reutilizable 
+    mode = "public", // reutilizable
+    related = [],
+    onSelectRelated,
   }) => {
   const [closing, setClosing] = useState(false)
   const closeButtonRef = useRef(null)
+  const scrollRef = useRef(null)
 
   const close = () => {
     setClosing(true)
@@ -48,9 +39,11 @@ const ReportModal = (
     return () => window.removeEventListener('keydown', handler)
   }, [selected])
 
-  // Move keyboard focus into the dialog so screen readers and Tab start inside it
+  // Move keyboard focus into the dialog and start each report at the top of the panel
   useEffect(() => {
-    if (selected) closeButtonRef.current?.focus()
+    if (!selected) return
+    closeButtonRef.current?.focus()
+    scrollRef.current?.scrollTo({ top: 0 })
   }, [selected])
 
   // Lock scroll
@@ -61,112 +54,88 @@ const ReportModal = (
 
   if (!selected) return null
 
-  const status   = findStatus(selected.estado)
-  const species  = findSpecies(selected.especie)
-  const badgeCls = status?.badge || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
-  const location = [selected.city, selected.barrio].filter(Boolean).join(', ')
-  const contactActions = mode === 'public' ? contactLinks(selected.contact) : []
+  const status  = findStatus(selected.estado)
+  const species = findSpecies(selected.especie)
+  const title   = selected.title || 'Sin nombre'
 
   const overlayAnim = closing ? 'opacity-0' : 'opacity-100'
-  const panelAnim   = closing ? 'opacity-0 scale-95 translate-y-2' : 'opacity-100 scale-100 translate-y-0'
+  const panelAnim   = closing ? 'opacity-0 scale-[0.97] translate-y-3' : 'opacity-100 scale-100 translate-y-0'
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-200 ${overlayAnim}`}
-      style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)' }}
+      className={`fixed inset-0 z-50 flex items-center justify-center sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity duration-200 ${overlayAnim}`}
       onClick={close}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-modal-title"
-        className={`bg-white w-full max-w-3xl rounded-2xl shadow-2xl transition-all duration-200 ${panelAnim}
-                  max-h-[90vh] flex flex-col`}
+        className={`relative flex h-full w-full max-w-6xl flex-col overflow-hidden bg-white shadow-2xl transition-all duration-200 ${panelAnim}
+                    sm:h-auto sm:max-h-[90vh] sm:rounded-4xl md:h-[min(90vh,46rem)] md:flex-row`}
         onClick={(e) => e.stopPropagation()}
       >
+        <button
+          ref={closeButtonRef}
+          type="button"
+          aria-label="Cerrar"
+          onClick={close}
+          className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-ink shadow-lg ring-1 ring-black/5 backdrop-blur transition hover:bg-white hover:rotate-90 cursor-pointer"
+        >
+          <FaXmark aria-hidden="true" className="text-lg" />
+        </button>
 
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100 sticky top-0 bg-white z-10">
-          <div className="flex items-center gap-3">
-            <h2 id="report-modal-title" className="text-xl font-bold text-gray-900">
-              {selected.title || 'Sin nombre'}
-            </h2>
-            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeCls}`}>
-              {status ? status.label : selected.estado}
-            </span>
-          </div>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            aria-label="Cerrar"
-            onClick={close}
-            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors text-gray-500 hover:text-gray-800 cursor-pointer"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </button>
+        {/* Fotos: ocupan todo el alto en computador */}
+        <div className="relative h-72 shrink-0 sm:h-96 md:h-auto md:w-[56%]">
+          {selected.photoURLs?.length
+            ? <Carousel images={selected.photoURLs} index={selectedIndex} setIndex={setSelectedIndex} title={title} />
+            : <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-cream text-black/20">
+                <FaPaw aria-hidden="true" className="text-7xl" />
+                <span className="text-sm text-gray-500">Sin imágenes</span>
+              </div>
+          }
         </div>
 
-        {/* Body — dos columnas */}
-        <div className="grid md:grid-cols-[1fr_280px] divide-y md:divide-y-0 md:divide-x divide-gray-100 overflow-y-auto">
+        {/* Información */}
+        <div ref={scrollRef} className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <div className="flex flex-col gap-6 p-6 md:p-8">
+            <header className="pr-12">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-cream px-3 py-1 text-xs font-bold text-ink">
+                  <span aria-hidden="true" className={`h-2 w-2 rounded-full ${status?.dot ?? 'bg-amber-500'}`} />
+                  {status?.label ?? selected.estado}
+                </span>
+                {species && (
+                  <span className="rounded-full bg-cream px-3 py-1 text-xs font-semibold text-ink">
+                    <span aria-hidden="true">{species.emoji}</span> {species.label}
+                  </span>
+                )}
+              </div>
+              <h2 id="report-modal-title" className="mt-3 font-display text-4xl md:text-5xl font-semibold leading-tight text-ink">
+                {title}
+              </h2>
+            </header>
 
-          {/* Izquierda: carousel */}
-          <div className="p-5">
-            {selected.photoURLs?.length
-              ? <Carousel
-                  images={selected.photoURLs}
-                  index={selectedIndex}
-                  setIndex={setSelectedIndex}
-                />
-              : <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-xl text-gray-300 gap-2">
-                  <span className="text-5xl">🐾</span>
-                  <span className="text-sm">Sin imágenes</span>
-                </div>
-            }
-          </div>
+            {selected.description && (
+              <p className="text-gray-700 leading-relaxed">{selected.description}</p>
+            )}
 
-          {/* Derecha: info + acciones */}
-          <div className="flex flex-col p-5 gap-4">
+            <ReportFacts report={selected} />
 
-            {/* Datos */}
-            <div className="space-y-4 flex-1">
-              <InfoRow icon={species?.emoji || '🐾'} label="Tipo de mascota" value={species?.label} />
-              <InfoRow icon="📍" label="Ubicación"    value={location} />
-              <InfoRow icon="📝" label="Descripción"  value={selected.description} />
-              <InfoRow icon="📞" label="Contacto"     value={selected.contact} />
-              {contactActions.length > 0 && (
-                <div className="flex flex-wrap gap-2 pl-8">
-                  {contactActions.map((action) => (
-                    <a
-                      key={action.type}
-                      href={action.href}
-                      target={action.type === 'call' || action.type === 'email' ? undefined : '_blank'}
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 ring-1 ring-amber-200 hover:bg-amber-100 transition-colors"
-                    >
-                      <span aria-hidden="true">{CONTACT_ICON[action.type]}</span>
-                      {action.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-              {selected.foundDate && (
-                <InfoRow icon="📅" label="Fecha de hallazgo" value={selected.foundDate} />
-              )}
-              {selected.foundPlaceDetails && (
-                <InfoRow icon="🗺️" label="Lugar de hallazgo" value={selected.foundPlaceDetails} />
-              )}
-              {selected.microchipped && (
-                <InfoRow icon="📡" label="Microchip" value={selected.chipId || 'Sí'} />
-              )}
-            </div>
+            {mode === 'public' && <ContactPanel report={selected} />}
+
+            {mode === 'owner' && selected.contact && (
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">Contacto publicado: </span>{selected.contact}
+              </p>
+            )}
 
             {/* Acciones */}
             {mode === 'public' && (
               <Link
                 to={`/reporte/${selected.id}`}
-                className="w-full text-center bg-[#FFD54F] hover:bg-yellow-400 text-gray-900 font-bold text-sm py-2.5 px-4 rounded-xl transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sun px-5 py-3.5 text-sm font-bold text-ink transition hover:bg-sun-deep"
               >
-                📤 Compartir o imprimir cartel
+                <FaShareNodes aria-hidden="true" /> Compartir o imprimir cartel
               </Link>
             )}
 
@@ -174,32 +143,34 @@ const ReportModal = (
               <button
                 type="button"
                 onClick={() => onReunite(selected)}
-                className="w-full bg-sky-50 hover:bg-sky-500 hover:text-white text-sky-700 font-bold text-sm py-2.5 px-4 rounded-xl transition-all border border-sky-200 hover:border-sky-500 cursor-pointer"
+                className="w-full rounded-2xl bg-sky-50 px-4 py-3 text-sm font-bold text-sky-700 ring-1 ring-sky-200 transition hover:bg-sky-500 hover:text-white cursor-pointer"
               >
                 🏡 Ya volvió a casa
               </button>
             )}
 
             {mode === "owner" && (
-              <div className="flex gap-2 pt-4 border-t border-gray-100">
+              <div className="flex gap-2 border-t border-black/5 pt-4">
                 <Link
                   to={`/editar-reporte/${selected.id}`}
-                  className="flex-1 bg-[#FFD54F] hover:bg-yellow-400 text-gray-900 font-bold text-sm py-2.5 px-4 rounded-xl transition-colors text-center"
+                  className="flex-1 rounded-2xl bg-sun px-4 py-3 text-center text-sm font-bold text-ink transition hover:bg-sun-deep"
                 >
                   ✏️ Editar
                 </Link>
                 <button
                   onClick={() => handleDelete(selected.id)}
-                  className="flex-1 bg-red-50 hover:bg-red-500 hover:text-white text-red-600 font-bold text-sm py-2.5 px-4 rounded-xl transition-all border border-red-200 hover:border-red-500 cursor-pointer"
+                  className="flex-1 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-600 ring-1 ring-red-200 transition hover:bg-red-500 hover:text-white cursor-pointer"
                 >
                   🗑️ Eliminar
                 </button>
               </div>
             )}
-
           </div>
-        </div>
 
+          {mode === 'public' && onSelectRelated && (
+            <RelatedReports city={selected.city} reports={related} onSelect={onSelectRelated} />
+          )}
+        </div>
       </div>
     </div>
   )

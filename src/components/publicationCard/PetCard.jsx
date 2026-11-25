@@ -1,145 +1,104 @@
 /**
  * PetCard.jsx
- * Tarjeta individual de reporte. Diseño moderno con:
- * - imagen con zoom en hover
- * - badge de estado con color semántico
- * - metadata accesible (ciudad, barrio, fecha)
- * - overlay de información al hacer hover
+ * Tarjeta de un reporte: la foto ocupa la parte superior con el nombre y la ubicación encima,
+ * el estado en una etiqueta y, abajo, la descripción, el tipo de mascota y la fecha.
  */
+import { FaPaw, FaLocationDot, FaCamera, FaArrowRight } from 'react-icons/fa6'
 import { findSpecies, findStatus } from '../../constants/pets'
 import { cloudinaryImage } from '../../utils/cloudinaryImage'
-
-const PLACEHOLDER_ICON = (
-  <svg className='w-12 h-12 text-gray-300' viewBox='0 0 24 24' fill='none'
-    stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'>
-    <path d='M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5'/>
-    <path d='M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.96-1.45-2.344-2.5'/>
-    <path d='M8 14v.5M16 14v.5'/>
-    <path d='M11.25 16.25h1.5L12 17z'/>
-    <path d='M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306'/>
-  </svg>
-)
-
-const estadoBadge = (estado) => {
-  const status = findStatus(estado)
-  if (status) return { cls: status.badge, label: `${status.emoji} ${status.label}` }
-  return { cls: 'bg-amber-100 text-amber-700 ring-1 ring-amber-200', label: estado || 'Sin estado' }
-}
-
-const formatDate = (ts) => {
-  if (!ts) return null
-  try {
-    const date = ts?.toDate ? ts.toDate() : new Date(ts)
-    return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' })
-  } catch {
-    return null
-  }
-}
+import { formatReportDate } from '../../utils/formatDate'
+import { CARD_IMAGE_WIDTH, preloadDetailImage } from '../../utils/preloadImage'
 
 const PetCard = ({ report, onClick }) => {
-  const badge   = estadoBadge(report.estado)
+  const status  = findStatus(report.estado)
   const species = findSpecies(report.especie)
-  const dateStr = formatDate(report.createdAt)
+  const dateStr = formatReportDate(report.createdAt)
   const img     = report.photoURLs?.[0]
+  const photos  = report.photoURLs?.length ?? 0
+  const place   = [report.city, report.barrio].filter(Boolean).join(' · ') || 'Ubicación no especificada'
+
+  // Hovering or focusing the card starts the download of the detail photo
+  const warmUp = () => preloadDetailImage(img)
 
   return (
     <article
       onClick={onClick}
+      onMouseEnter={warmUp}
+      onFocus={warmUp}
       role='button'
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
+      onKeyDown={(e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return
+        e.preventDefault()
+        onClick?.()
+      }}
       className='
-        group relative bg-white rounded-2xl overflow-hidden
-        shadow-sm border border-gray-100
-        cursor-pointer
-        transition-all duration-300
-        hover:shadow-lg hover:-translate-y-1 hover:border-amber-200
-        focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2
+        group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white cursor-pointer
+        ring-1 ring-black/5 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]
+        transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.55)]
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-sun-deep focus-visible:ring-offset-2
       '
     >
-      {/* ── Imagen ── */}
-      <div className='relative h-52 w-full overflow-hidden bg-gray-100'>
+      {/* ── Foto con nombre y ubicación encima ── */}
+      <div className='relative aspect-4/3 overflow-hidden bg-cream'>
         {img ? (
-          <>
-            <img
-              src={cloudinaryImage(img, 480)}
-              alt={report.title}
-              loading='lazy'
-              className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-110'
-            />
-            {/* overlay sutil en hover */}
-            <div className='absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-          </>
+          <img
+            src={cloudinaryImage(img, CARD_IMAGE_WIDTH)}
+            alt={report.title || 'Mascota reportada'}
+            loading='lazy'
+            className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
+          />
         ) : (
-          <div className='flex h-full w-full flex-col items-center justify-center gap-2'>
-            {PLACEHOLDER_ICON}
-            <span className='text-xs text-gray-400'>Sin imagen</span>
+          <div className='flex h-full w-full items-center justify-center text-6xl text-black/10'>
+            <FaPaw aria-hidden='true' />
           </div>
         )}
+        <div aria-hidden='true' className='absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent' />
 
-        {/* Badge de estado — esquina superior derecha */}
-        <span className={`
-          absolute top-3 right-3
-          text-xs font-semibold px-2.5 py-1 rounded-full
-          backdrop-blur-sm
-          ${badge.cls}
-        `}>
-          {badge.label}
+        <span className='absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-ink shadow-sm backdrop-blur'>
+          <span aria-hidden='true' className={`h-2 w-2 rounded-full ${status?.dot ?? 'bg-amber-500'}`} />
+          {status?.label ?? (report.estado || 'Sin estado')}
         </span>
 
-        {/* Múltiples fotos indicator */}
-        {report.photoURLs?.length > 1 && (
-          <span className='absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm'>
-            +{report.photoURLs.length - 1} fotos
+        {photos > 1 && (
+          <span className='absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur'>
+            <FaCamera aria-hidden='true' /> {photos}
           </span>
         )}
+
+        <div className='absolute inset-x-0 bottom-0 p-4 text-white'>
+          <h2 className='truncate font-display text-2xl font-semibold leading-tight'>
+            {report.title || 'Sin nombre'}
+          </h2>
+          <p className='mt-1 flex items-center gap-1.5 truncate text-sm text-white/85'>
+            <FaLocationDot aria-hidden='true' className='shrink-0 text-sun' />
+            <span className='truncate'>{place}</span>
+          </p>
+        </div>
       </div>
 
-      {/* ── Contenido ── */}
-      <div className='p-4'>
-        <div className='flex items-center justify-between gap-2 mb-1'>
-          <h2 className='font-bold text-gray-900 text-base leading-snug truncate'>
-            {report.title || 'Sin título'}
-          </h2>
-          {species && (
-            <span className='shrink-0 text-xs font-medium text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full'>
-              <span aria-hidden='true'>{species.emoji}</span> {species.label}
-            </span>
-          )}
-        </div>
+      {/* ── Descripción y datos ── */}
+      <div className='flex flex-1 flex-col p-5'>
+        <p className='line-clamp-2 text-sm leading-relaxed text-gray-600'>
+          {report.description || 'Sin descripción.'}
+        </p>
 
-        {/* Ubicación */}
-        <div className='flex items-center gap-1.5 text-gray-500 text-sm mb-2'>
-          <svg className='w-3.5 h-3.5 shrink-0 text-amber-400' viewBox='0 0 24 24'
-            fill='none' stroke='currentColor' strokeWidth='2.5' strokeLinecap='round'>
-            <path d='M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z'/>
-            <circle cx='12' cy='10' r='3'/>
-          </svg>
-          <span className='truncate'>
-            {[report.city, report.barrio].filter(Boolean).join(' · ') || 'Ubicación no especificada'}
+        <div className='mt-auto flex items-center justify-between gap-3 border-t border-black/5 pt-4'>
+          <div className='flex min-w-0 items-center gap-2 text-xs text-gray-600'>
+            {species && (
+              <span className='shrink-0 rounded-full bg-cream px-2.5 py-1 font-semibold text-ink'>
+                <span aria-hidden='true'>{species.emoji}</span> {species.label}
+              </span>
+            )}
+            {dateStr && <span className='truncate'>{dateStr}</span>}
+          </div>
+          <span
+            aria-hidden='true'
+            className='flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sun text-ink transition-transform duration-300 group-hover:translate-x-1'
+          >
+            <FaArrowRight />
           </span>
         </div>
-
-        {/* Descripción (preview) */}
-        {report.description && (
-          <p className='text-xs text-gray-500 line-clamp-2 leading-relaxed mb-3'>
-            {report.description}
-          </p>
-        )}
-
-        {/* Footer: fecha */}
-        {dateStr && (
-          <div className='flex items-center gap-1 text-gray-500 text-xs border-t border-gray-100 pt-2.5 mt-1'>
-            <svg className='w-3.5 h-3.5' viewBox='0 0 24 24' fill='none'
-              stroke='currentColor' strokeWidth='2' strokeLinecap='round'>
-              <rect x='3' y='4' width='18' height='18' rx='2' ry='2'/>
-              <line x1='16' y1='2' x2='16' y2='6'/>
-              <line x1='8' y1='2' x2='8' y2='6'/>
-              <line x1='3' y1='10' x2='21' y2='10'/>
-            </svg>
-            <span>{dateStr}</span>
-          </div>
-        )}
       </div>
     </article>
   )

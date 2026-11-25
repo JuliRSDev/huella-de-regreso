@@ -1,24 +1,21 @@
 /**
  * PetCardSkeleton.jsx
- * Placeholder animado mientras cargan las tarjetas.
+ * Placeholder animado mientras cargan las tarjetas, con la misma forma de PetCard.
  */
 
 const Shimmer = ({ className }) => (
-  <div className={`animate-pulse bg-gray-200 rounded ${className}`} />
+  <div className={`animate-pulse bg-black/5 rounded ${className}`} />
 )
 
 const PetCardSkeleton = () => (
-  <div className='bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100'>
-    {/* Imagen */}
-    <Shimmer className='h-52 w-full rounded-none' />
-    {/* Contenido */}
-    <div className='p-4 space-y-3'>
-      <Shimmer className='h-4 w-3/4' />
-      <Shimmer className='h-3 w-1/2' />
+  <div className='overflow-hidden rounded-3xl bg-white ring-1 ring-black/5'>
+    <Shimmer className='aspect-4/3 w-full rounded-none' />
+    <div className='space-y-3 p-5'>
       <Shimmer className='h-3 w-full' />
       <Shimmer className='h-3 w-5/6' />
-      <div className='pt-2 border-t border-gray-100'>
-        <Shimmer className='h-3 w-1/3' />
+      <div className='flex items-center justify-between border-t border-black/5 pt-4'>
+        <Shimmer className='h-5 w-1/2 rounded-full' />
+        <Shimmer className='h-9 w-9 rounded-full' />
       </div>
     </div>
   </div>
@@ -28,8 +25,8 @@ const PetCardSkeleton = () => (
  * Genera N skeletons en un grid
  */
 export const SkeletonGrid = ({ count = 9 }) => (
-  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-    {Array.from({ length: count }).map((_, i) => (
+  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+    {Array.from({ length: count }, (_, i) => (
       <PetCardSkeleton key={i} />
     ))}
   </div>

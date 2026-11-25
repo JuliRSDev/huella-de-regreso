@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom'
+import { FaPaw, FaLocationDot } from 'react-icons/fa6'
 import { findStatus } from '../../constants/pets'
 import { cloudinaryImage } from '../../utils/cloudinaryImage'
+import { CARD_IMAGE_WIDTH, preloadDetailImage } from '../../utils/preloadImage'
 
+// Same look as the public PetCard, with the owner's actions (Ver, Editar, Eliminar) over the photo.
 const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) => {
   const status   = findStatus(r.estado)
-  const badgeCls = status?.badge || 'bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200'
   const location = [r.city, r.barrio].filter(Boolean).join(' · ')
+  const img      = r.photoURLs?.[0]
 
   return (
-    <article className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer">
-
-      {/* Imagen */}
+    <article
+      onMouseEnter={() => preloadDetailImage(img)}
+      className="group overflow-hidden rounded-3xl bg-white ring-1 ring-black/5 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.55)] cursor-pointer"
+    >
       <div
-        className="relative h-52 overflow-hidden"
+        className="relative aspect-4/3 overflow-hidden bg-cream"
         onClick={(e) => {
           if (isTouchRef.current) {
             const tag = e.target.tagName.toLowerCase()
@@ -23,66 +27,61 @@ const ReportCard = ({ r, activeId, setActiveId, isTouchRef, onDelete, onView }) 
           }
         }}
       >
-        {r.photoURLs?.[0]
+        {img
           ? <img
-              src={cloudinaryImage(r.photoURLs[0], 480)}
+              src={cloudinaryImage(img, CARD_IMAGE_WIDTH)}
               alt={r.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-          : <div className="flex flex-col items-center justify-center h-full bg-gray-50 text-gray-300 gap-2">
-              <span className="text-4xl">🐾</span>
-              <span className="text-xs">Sin imagen</span>
+          : <div className="flex h-full items-center justify-center text-6xl text-black/10">
+              <FaPaw aria-hidden="true" />
             </div>
         }
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
+
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-ink shadow-sm backdrop-blur">
+          <span aria-hidden="true" className={`h-2 w-2 rounded-full ${status?.dot ?? 'bg-amber-500'}`} />
+          {status ? status.label : r.estado}
+        </span>
+
+        <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+          <h3 className="truncate font-display text-2xl font-semibold leading-tight">{r.title || 'Sin nombre'}</h3>
+          {location && (
+            <p className="mt-1 flex items-center gap-1.5 truncate text-sm text-white/85">
+              <FaLocationDot aria-hidden="true" className="shrink-0 text-sun" />
+              <span className="truncate">{location}</span>
+            </p>
+          )}
+        </div>
 
         {/* Overlay de acciones */}
         <div className={`
-          absolute inset-0 bg-black/40 backdrop-blur-[1px]
-          flex items-center justify-center gap-2
+          absolute inset-0 flex items-center justify-center gap-2
+          bg-black/45 backdrop-blur-[2px]
           transition-opacity duration-200
           md:opacity-0 md:group-hover:opacity-100
           ${activeId === r.id ? 'opacity-100' : 'opacity-0'}
         `}>
           <button
             onClick={(e) => { e.stopPropagation(); onView(r) }}
-            className="bg-white text-gray-900 text-xs font-bold px-4 py-2 rounded-xl hover:bg-yellow-400 transition-colors cursor-pointer"
+            className="rounded-xl bg-white px-4 py-2 text-xs font-bold text-ink transition hover:bg-sun cursor-pointer"
           >
             Ver
           </button>
           <Link
             to={`/editar-reporte/${r.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#FFD54F] text-gray-900 text-xs font-bold px-4 py-2 rounded-xl hover:bg-yellow-300 transition-colors"
+            className="rounded-xl bg-sun px-4 py-2 text-xs font-bold text-ink transition hover:bg-sun-deep"
           >
             Editar
           </Link>
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(r.id) }}
-            className="bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-red-600 transition-colors cursor-pointer"
+            className="rounded-xl bg-red-500 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-600 cursor-pointer"
           >
             Eliminar
           </button>
         </div>
-
-        {/* Badge de estado flotante */}
-        <div className="absolute top-3 left-3">
-          <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm bg-white/90 ${badgeCls}`}>
-            <span aria-hidden="true">{status?.emoji}</span>
-            {status ? status.label : r.estado}
-          </span>
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="px-4 py-3">
-        <h3 className="font-bold text-gray-900 text-base leading-tight truncate">
-          {r.title || 'Sin nombre'}
-        </h3>
-        {location && (
-          <p className="text-xs text-gray-400 mt-0.5 truncate flex items-center gap-1">
-            <span>📍</span>{location}
-          </p>
-        )}
       </div>
     </article>
   )
